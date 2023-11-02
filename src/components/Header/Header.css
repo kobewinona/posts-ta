@@ -1,9 +1,33 @@
 .header {
-  width: calc(100% - (40px * 2));
+  width: calc(100% - (10px * 2));
 
-  margin: 0 auto;
+  display: flex;
+
+  margin: 40px auto;
 }
 
 .header__title {
-  font-weight: 500;
+  height: 100%;
+  max-width: min-content;
+
+  cursor: default;
+
+  font-size: 30px;
+  font-weight: 900;
+  line-height: .8;
+
+  margin: 0;
+  padding-right: 40px;
+}
+
+.header__color-block {
+  width: 100%;
+  background-color: #2a2b2e;
+}
+
+@media (min-width: 768px) {
+  .header {
+    width: calc(100% - (30px * 2));
+    max-width: 1140px;
+  }
 }

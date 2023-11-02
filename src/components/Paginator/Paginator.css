@@ -1,0 +1,40 @@
+.paginator {
+  width: calc(100% - 10px * 2);
+  max-width: 708px;
+
+  display: flex;
+  justify-content: center;
+  column-gap: 20px;
+
+  margin: 70px auto 0;
+}
+
+.paginator__button {
+  width: 70px;
+
+  color: #f0f1ec;
+  font-weight: 500;
+
+  cursor: pointer;
+  background-color: #2a2b2e;
+
+  padding: 5px 0;
+
+  border: none;
+  opacity: 1;
+
+  transition: opacity .4s linear;
+}
+
+.paginator__button:hover {
+  opacity: .8;
+
+  transition: opacity .2s linear;
+}
+
+@media (min-width: 768px) {
+  .paginator {
+    width: calc(100% - (30px * 2));
+    max-width: 1140px;
+  }
+}

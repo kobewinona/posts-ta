@@ -13,3 +13,11 @@
   font-display: swap;
   src: url('Inter-Medium.woff?v=3.19') format('woff');
 }
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 900;
+  font-display: optional;
+  src: url('Inter-Black.woff?v=3.19') format('woff');
+}

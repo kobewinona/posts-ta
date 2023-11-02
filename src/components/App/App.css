@@ -3,13 +3,11 @@ html {
 }
 
 #root {
-  min-height: 100vh;
-
-  color: #222;
+  color: #2a2b2e;
   font-family: 'Inter', Tahoma, sans-serif;
   font-style: normal;
 
-  background-color: #fff;
+  background-color: #f0f1ec;
 
   display: grid;
   grid-template-columns: 100%;

@@ -7,9 +7,9 @@ import './PostCard.css';
 const PostCard = ({title, body, userId}) => {
   return (
     <li className="post-card">
+      <p className="post-card__author">{userId}</p>
       <h3 className="post-card__title" title={title}>{title}</h3>
-      <p>{userId}</p>
-      <p>{body}</p>
+      <p className="post-card__text">{body}</p>
     </li>
   );
 };

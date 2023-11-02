@@ -3,13 +3,25 @@ import React, {useEffect, useState} from 'react';
 
 import './PostsList.css';
 import PostCard from '../PostCard/PostCard';
+import Paginator from '../Paginator/Paginator';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 
 const PostsList = ({postsList}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
+  const {
+    storedValue: storedPostsCountLimit,
+    setStoredValue: setStoredPostsCountLimit
+  } = useLocalStorage('postsCountLimit', 10);
 
   useEffect(() => {
-    setPostsCountLimit(10);
+    setStoredPostsCountLimit(postsCountLimit);
+  }, [postsCountLimit]);
+
+  useEffect(() => {
+    if (storedPostsCountLimit) {
+      setPostsCountLimit(storedPostsCountLimit);
+    }
   }, []);
 
   return (
@@ -17,6 +29,9 @@ const PostsList = ({postsList}) => {
       {
         <>
           <ul className="posts-list__container">
+            <li className="posts-list__add-button-container">
+              <button className="posts-list__add-button">ADD POST</button>
+            </li>
             {
               postsList?.map((post, index) => {
                 return (index < postsCountLimit &&
@@ -30,6 +45,7 @@ const PostsList = ({postsList}) => {
               })
             }
           </ul>
+          <Paginator setPostsCountLimit={setPostsCountLimit}/>
         </>
       }
     </section>
