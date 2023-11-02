@@ -1,25 +1,38 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+
+import * as api from '../../utils/postsApi';
+
+import Header from '../Header/Header';
+import Main from '../Main/Main';
+import Footer from '../Footer/Footer';
 
 import './App.css';
 
+
 function App() {
+  const [postsList, setPostsList] = useState([]);
+
+  const getAllPosts = () => {
+    api.getPosts()
+      .then((data) => {
+        setPostsList(data);
+      });
+  }
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  useEffect(() => {
+    console.log('postsList', postsList);
+  }, [postsList]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="#" className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header/>
+      <Main postsList={postsList}/>
+      <Footer/>
+    </>
   );
 }
 
