@@ -1,11 +1,22 @@
-@keyframes appear {
+@keyframes unfold {
   from {
-    transform: scale(.8);
+    transform: scale(1, .5);
     opacity: 0;
   }
   to {
+    transform: scale(1, 1);
     opacity: 1;
-    transform: scale(1);
+  }
+}
+
+@keyframes fold {
+  from {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1, .5);
+    opacity: 0;
   }
 }
 
@@ -15,7 +26,8 @@
   border-right: 1px solid #2a2b2e;
   padding: 20px;
 
-  animation: appear .2s forwards ease-in;
+  animation: unfold .2s forwards ease-in;
+  will-change: transform, opacity;
 }
 
 .post-card:nth-child(3n) {

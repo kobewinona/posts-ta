@@ -1,32 +1,30 @@
-import React from 'react';
+import PropTypes from 'prop-types';
+import React, {useState} from 'react';
+
+import {DEFAULT_POSTS_LIMIT, POSTS_LIMITS} from '../../utils/constants';
 
 import './Paginator.css';
-import PropTypes from 'prop-types';
 
 
 const Paginator = ({setPostsCountLimit}) => {
+  const [activeButtonValue, setActiveButtonValue] = useState(DEFAULT_POSTS_LIMIT);
+
+  const handleButtonClick = (value) => {
+    setActiveButtonValue(value);
+    setPostsCountLimit(value);
+  }
+
   return (
     <div className="paginator">
-      <button
-        className="paginator__button"
-        onClick={() => setPostsCountLimit(10)}
-      >10</button>
-      <button
-        className="paginator__button"
-        onClick={() => setPostsCountLimit(20)}
-      >20</button>
-      <button
-        className="paginator__button"
-        onClick={() => setPostsCountLimit(50)}
-      >50</button>
-      <button
-        className="paginator__button"
-        onClick={() => setPostsCountLimit(100)}
-      >100</button>
-      <button
-        className="paginator__button"
-        onClick={() => setPostsCountLimit(Number.MAX_SAFE_INTEGER)}
-      >all</button>
+      {POSTS_LIMITS.map((postsLimit) => {
+        return (
+          <button
+            key={postsLimit}
+            className={`paginator__button ${activeButtonValue === postsLimit && 'paginator__button_active'}`}
+            onClick={() => handleButtonClick(postsLimit)}
+          >{postsLimit === Number.MAX_SAFE_INTEGER ? 'all' : postsLimit}</button>
+        )
+      })}
     </div>
   );
 };

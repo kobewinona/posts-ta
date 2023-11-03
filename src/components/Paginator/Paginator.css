@@ -12,18 +12,24 @@
 .paginator__button {
   width: 70px;
 
-  color: #f0f1ec;
+  color: #2a2b2e;
   font-weight: 500;
 
   cursor: pointer;
-  background-color: #2a2b2e;
+  background-color: transparent;
 
   padding: 5px 0;
 
-  border: none;
+  border: 1px solid #2a2b2e;
   opacity: 1;
 
   transition: opacity .4s linear;
+}
+
+.paginator__button_active {
+  color: #f0f1ec;
+
+  background-color: #2a2b2e;
 }
 
 .paginator__button:hover {
