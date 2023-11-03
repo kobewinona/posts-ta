@@ -8,12 +8,12 @@ import Posts from '../Posts/Posts';
 
 const Main = ({onOpenAddPostPopup, onOpenEditPostPopup}) => {
   return (
-    <>
+    <main>
       <Posts
         onOpenAddPostPopup={onOpenAddPostPopup}
         onOpenEditPostPopup={onOpenEditPostPopup}
       />
-    </>
+    </main>
   );
 };
 

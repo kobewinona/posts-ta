@@ -14,13 +14,13 @@ const InputWithErrorMessage = ({defaultValue, onUpdate, name, ...props}) => {
     errorMessage,
     handleInputChange
   } = useInputWithValidation(name, defaultValue);
-  
+
   useEffect(() => {
     if (inputName && inputValue) {
       onUpdate(inputName, inputValue);
     }
   }, [inputValue]);
-  
+
   return (
     <div className="input-with-error-message">
       <input
@@ -41,8 +41,8 @@ const InputWithErrorMessage = ({defaultValue, onUpdate, name, ...props}) => {
 
 InputWithErrorMessage.propTypes = {
   defaultValue: PropTypes.string,
-  onUpdate: PropTypes.func,
-  name: PropTypes.string,
+  onUpdate: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   props: PropTypes.any
 };
 

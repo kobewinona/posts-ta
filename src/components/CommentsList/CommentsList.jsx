@@ -16,7 +16,8 @@ const CommentsList = ({postId, commentsList}) => {
   return (
     <ul className="comments-list">
       {
-        currentPostComments.map((comment) => {
+        currentPostComments?.length > 0
+        ? currentPostComments.map((comment) => {
           return (
             <li key={comment.id} className="comments-list__comment">
               <p className="comments-list__comment-name" title={comment.name}>
@@ -27,6 +28,7 @@ const CommentsList = ({postId, commentsList}) => {
             </li>
           )
         })
+        : <p className="comments-list__no-comments">NO COMMENTS</p>
       }
     </ul>
   );

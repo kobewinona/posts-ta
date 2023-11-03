@@ -5,7 +5,7 @@ import './PostCardButtons.css';
 import PostCardButton from './PostCardButton';
 
 
-const PostCardButtons = ({onShowComments}) => {
+const PostCardButtons = ({onShowComments, onOpenEditPostPopup}) => {
   const [isActive, setIsActive] = useState(false);
 
   const toggleShowComments = () => {
@@ -22,29 +22,35 @@ const PostCardButtons = ({onShowComments}) => {
           ariaLabel="Show comments."
           title="Show comments"
           onButtonClick={toggleShowComments}
+          isToggleOn={true}
         />
         <PostCardButton
           name="edit"
           ariaLabel="Edit post."
           title="Edit post"
+          onButtonClick={onOpenEditPostPopup}
+          isToggleOn={false}
         />
         <PostCardButton
           name="bookmark"
           ariaLabel="Save post to bookmarks."
           title="Save post to bookmarks"
+          isToggleOn={true}
         />
       </div>
       <PostCardButton
         name="delete"
         ariaLabel="Delete post."
         title="Delete post"
+        isToggleOn={false}
       />
     </div>
   );
 };
 
 PostCardButtons.propTypes = {
-  onShowComments: PropTypes.func.isRequired
+  onShowComments: PropTypes.func,
+  onOpenEditPostPopup: PropTypes.func
 };
 
 export default PostCardButtons;

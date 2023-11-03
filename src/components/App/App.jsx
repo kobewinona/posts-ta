@@ -18,7 +18,8 @@ import EditPostPopup from '../EditPostPopup/EditPostPopup';
 import './App.css';
 
 
-function App({dispatch}) {
+function App({dispatch, postsList}) {
+  const [isUpdating, setIsUpdating] = useState(false);
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
 
@@ -46,11 +47,17 @@ function App({dispatch}) {
   };
 
   const addNewPost = (newPostData) => {
+    setIsUpdating(true);
+
     api.addPost(newPostData)
       .then((post) => {
-        dispatch(setPostsList((prevState) => ({...prevState, post})))
+        dispatch(setPostsList([post, ...postsList]));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => {
+        closeAllPopups()
+        setIsUpdating(false);
+      });
   };
 
   const openAddPostPopup = () => {
@@ -82,6 +89,8 @@ function App({dispatch}) {
       <Footer/>
       <AddPostPopup
         isOpen={isAddPostPopupOpen}
+        onAddPost={addNewPost}
+        isUpdating={isUpdating}
         onClose={closeAllPopups}
       />
       <EditPostPopup
@@ -93,7 +102,12 @@ function App({dispatch}) {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired
-}
+  dispatch: PropTypes.func.isRequired,
+  postsList: PropTypes.array
+};
 
-export default connect()(App);
+const mapStateToProps = (state) => ({
+  postsList: state.data.postsList,
+});
+
+export default connect(mapStateToProps)(App);

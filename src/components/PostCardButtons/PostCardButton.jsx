@@ -4,11 +4,13 @@ import React, {useState} from 'react';
 import './PostCardButton.css';
 
 
-const PostCardButton = ({name, onButtonClick, ...props}) => {
+const PostCardButton = ({name, onButtonClick, isToggleOn, ...props}) => {
   const [isButtonActive, setIsButtonActive] = useState(false);
 
   const handleButtonClick = (event) => {
-    setIsButtonActive(!isButtonActive);
+    if (isToggleOn) {
+      setIsButtonActive(!isButtonActive);
+    }
 
     if (onButtonClick) {
       onButtonClick(event);
@@ -31,7 +33,8 @@ const PostCardButton = ({name, onButtonClick, ...props}) => {
 
 PostCardButton.propTypes = {
   name: PropTypes.string.isRequired,
-  onButtonClick: PropTypes.func
+  onButtonClick: PropTypes.func,
+  isToggleOn: PropTypes.bool.isRequired
 }
 
 export default PostCardButton;

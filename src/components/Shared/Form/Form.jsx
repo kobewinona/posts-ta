@@ -8,9 +8,9 @@ import Spinner from '../Spinner/Spinner';
 import './Form.css';
 
 
-const Form = ({showDefaultSubmitButton, initialValues, onSubmit, isUpdating, serverErrorMessage, ...props}) => {
+const Form = ({initialValues, name, submitText, onSubmit, isUpdating, children}) => {
   const {isFormValid, handleChange, resetForm} = useFormWithValidation(initialValues);
-  
+
   const handleSubmit = event => {
     event.preventDefault();
 
@@ -18,45 +18,36 @@ const Form = ({showDefaultSubmitButton, initialValues, onSubmit, isUpdating, ser
 
     resetForm();
   };
-  
+
   return (
     <form
       className="form"
       onChange={handleChange}
       onSubmit={handleSubmit}
-      name={props.name}
+      name={name}
       noValidate
     >
-      {props.children}
-      {
-        showDefaultSubmitButton &&
-        <div>
-          <p className="form__error-message">{serverErrorMessage}</p>
-          <button
-            className={`form__submit
+      {children}
+      <button
+        className={`form__submit
           ${!isFormValid && 'form__submit_disabled'}
           ${isUpdating && 'form__submit_updated'}`}
-            type="submit"
-            name="submit"
-            disabled={!isFormValid || isUpdating}
-          >{isUpdating ? <Spinner/> : props.submitText || 'Сохранить'}
-          </button>
-        </div>
-      }
+        type="submit"
+        name="submit"
+        disabled={!isFormValid || isUpdating}
+      >{isUpdating ? <Spinner/> : submitText || 'Сохранить'}
+      </button>
     </form>
   );
 };
 
 Form.propTypes = {
-  showDefaultSubmitButton: PropTypes.bool,
   initialValues: PropTypes.object,
-  onSubmit: PropTypes.func,
-  name: PropTypes.string,
   submitText: PropTypes.string,
+  onSubmit: PropTypes.func.isRequired,
+  name: PropTypes.string.isRequired,
   isUpdating: PropTypes.bool,
   children: PropTypes.any,
-  serverErrorMessage: PropTypes.string,
-  props: PropTypes.object
 };
 
 export default Form;

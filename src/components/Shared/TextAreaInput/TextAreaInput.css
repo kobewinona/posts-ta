@@ -1,0 +1,22 @@
+.text-area-input {
+  width: 100%;
+  min-height: 100px;
+  max-height: 300px;
+  box-sizing: border-box;
+  resize: vertical;
+
+  background-color: transparent;
+
+  outline: none;
+  margin: 0 0 40px;
+  border: 1px solid rgba(42, 43, 46, .2);
+
+  transition: border .2s linear;
+  will-change: border;
+}
+
+.text-area-input:focus {
+  border: 1px solid rgba(42, 43, 46, 1);
+
+  transition: border .2s linear;
+}

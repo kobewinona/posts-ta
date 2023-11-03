@@ -28,3 +28,7 @@
 .comments-list__comment-text {
   margin: 20px 0 40px;
 }
+
+.comments-list__no-comments {
+  font-weight: 900;
+}
