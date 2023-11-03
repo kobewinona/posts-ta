@@ -8,8 +8,8 @@ import Spinner from '../Spinner/Spinner';
 import './Form.css';
 
 
-const Form = ({isShown, initialValues, name, submitText, onSubmit, isUpdating, children}) => {
-  const {isFormValid, handleChange, resetForm} = useFormWithValidation(initialValues);
+const Form = ({isShown, isValidByDefault, initialValues, name, submitText, onSubmit, isUpdating, children}) => {
+  const {isFormValid, handleChange, resetForm, setFormValid} = useFormWithValidation(initialValues);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -20,7 +20,11 @@ const Form = ({isShown, initialValues, name, submitText, onSubmit, isUpdating, c
   };
 
   useEffect(() => {
-    resetForm();
+    if (!isValidByDefault) {
+      resetForm();
+    } else {
+      setFormValid();
+    }
   }, [isShown]);
 
   return (
@@ -47,6 +51,7 @@ const Form = ({isShown, initialValues, name, submitText, onSubmit, isUpdating, c
 
 Form.propTypes = {
   isShown: PropTypes.bool,
+  isValidByDefault: PropTypes.bool,
   initialValues: PropTypes.object,
   submitText: PropTypes.string,
   onSubmit: PropTypes.func,

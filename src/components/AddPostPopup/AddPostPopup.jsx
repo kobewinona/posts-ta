@@ -29,12 +29,12 @@ const AddPostPopup = ({isOpen, onAddPost, isUpdating, onClose}) => {
 
   return (
     <Popup
-      name="add-post"
       isOpen={isOpen}
       onSubmit={handleSubmit}
       isUpdating={isUpdating}
       onClose={onClose}
       title="Add Post"
+      name="add-post"
     >
       <InputTitle title="Author"/>
       <SelectInput

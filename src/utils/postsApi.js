@@ -30,10 +30,15 @@ export const addPost = (newPost) => {
 };
 
 export const editPost = (patchedPost, postId) => {
-  console.log('patchedPost and postId', patchedPost, postId);
   return setRequest(`${postsApiConfig['url']}/posts/${postId}`, {
     method: 'PATCH',
     headers: {...postsApiConfig['headers']},
     body: JSON.stringify(patchedPost)
+  }).then(res => returnRes(res));
+};
+
+export const deletePost = (postId) => {
+  return setRequest(`${postsApiConfig['url']}/posts/${postId}`, {
+    method: 'DELETE'
   }).then(res => returnRes(res));
 };

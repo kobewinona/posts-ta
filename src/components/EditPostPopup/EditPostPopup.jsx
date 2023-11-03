@@ -34,7 +34,7 @@ const EditPostPopup = ({isOpen, postToEdit, onEditPost, isUpdating, onClose}) =>
       isUpdating={isUpdating}
       onClose={onClose}
       title="Edit Post"
-      name="add-post"
+      name="edit-post"
     >
       <InputTitle title="Author"/>
       <SelectInput

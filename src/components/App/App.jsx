@@ -16,13 +16,16 @@ import AddPostPopup from '../AddPostPopup/AddPostPopup';
 import EditPostPopup from '../EditPostPopup/EditPostPopup';
 
 import './App.css';
+import DeletePostPopup from '../DeletePostPopup/DeletePostPopup';
 
 
 function App({dispatch, postsList}) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
+  const [isDeletePostPopupOpen, setIsDeletePostPopupOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState({});
+  const [postToDelete, setPostToDelete] = useState(0);
 
   const getAllPosts = () => {
     api.getPosts()
@@ -64,15 +67,31 @@ function App({dispatch, postsList}) {
   const editPost = (patchedPost, postId) => {
     setIsUpdating(true);
 
-    console.log('patchedPost', patchedPost);
-    console.log('postId', postId);
-
     api.editPost(patchedPost, postId)
       .then((patchedPost) => {
         const updatedPostsList = postsList.map((post) => {
           if (post.id === postId) {
             return (patchedPost);
           } else {
+            return (post);
+          }
+        })
+        dispatch(setPostsList(updatedPostsList));
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        closeAllPopups()
+        setIsUpdating(false);
+      });
+  };
+
+  const deletePost = (postId) => {
+    setIsUpdating(true);
+
+    api.deletePost(postId)
+      .then(() => {
+        const updatedPostsList = postsList.filter((post) => {
+          if (post.id !== postId) {
             return (post);
           }
         })
@@ -94,9 +113,15 @@ function App({dispatch, postsList}) {
     setIsEditPostPopupOpen(true);
   };
 
+  const openDeletePostPopup = (postId) => {
+    setPostToDelete(postId);
+    setIsDeletePostPopupOpen(true);
+  };
+
   const closeAllPopups = () => {
     setIsAddPostPopupOpen(false);
     setIsEditPostPopupOpen(false);
+    setIsDeletePostPopupOpen(false);
   };
 
   useEffect(() => {
@@ -111,6 +136,7 @@ function App({dispatch, postsList}) {
       <Main
         onOpenAddPostPopup={openAddPostPopup}
         onOpenEditPostPopup={openEditPostPopup}
+        onOpenDeletePostPopup={openDeletePostPopup}
       />
       <Footer/>
       <AddPostPopup
@@ -123,6 +149,13 @@ function App({dispatch, postsList}) {
         isOpen={isEditPostPopupOpen}
         postToEdit={postToEdit}
         onEditPost={editPost}
+        isUpdating={isUpdating}
+        onClose={closeAllPopups}
+      />
+      <DeletePostPopup
+        isOpen={isDeletePostPopupOpen}
+        postToDelete={postToDelete}
+        onDeletePost={deletePost}
         isUpdating={isUpdating}
         onClose={closeAllPopups}
       />

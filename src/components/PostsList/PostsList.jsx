@@ -11,7 +11,7 @@ import {setPostsList} from '../../actions/actions';
 import './PostsList.css';
 
 
-const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup}) => {
+const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
   const {
     storedValue: storedPostsCountLimit,
@@ -49,6 +49,7 @@ const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup}) => {
                     body={post.body}
                     userId={post.userId}
                     onOpenEditPostPopup={onOpenEditPostPopup}
+                    onOpenDeletePostPopup={onOpenDeletePostPopup}
                   />
                 );
               })
@@ -65,10 +66,11 @@ const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup}) => {
 };
 
 PostsList.propTypes = {
-  postsList: PropTypes.array.isRequired,
-  setPostsList: PropTypes.func.isRequired,
-  onOpenAddPostPopup: PropTypes.func.isRequired,
-  onOpenEditPostPopup: PropTypes.func.isRequired
+  postsList: PropTypes.array,
+  setPostsList: PropTypes.func,
+  onOpenAddPostPopup: PropTypes.func,
+  onOpenEditPostPopup: PropTypes.func,
+  onOpenDeletePostPopup: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

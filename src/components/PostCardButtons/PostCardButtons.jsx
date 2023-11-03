@@ -5,7 +5,7 @@ import './PostCardButtons.css';
 import PostCardButton from './PostCardButton';
 
 
-const PostCardButtons = ({onShowComments, onOpenEditPostPopup}) => {
+const PostCardButtons = ({onShowComments, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
   const [isActive, setIsActive] = useState(false);
 
   const toggleShowComments = () => {
@@ -38,6 +38,7 @@ const PostCardButtons = ({onShowComments, onOpenEditPostPopup}) => {
       <PostCardButton
         name="delete"
         title="Delete post"
+        onButtonClick={onOpenDeletePostPopup}
         isToggleOn={false}
       />
     </div>
@@ -46,7 +47,8 @@ const PostCardButtons = ({onShowComments, onOpenEditPostPopup}) => {
 
 PostCardButtons.propTypes = {
   onShowComments: PropTypes.func,
-  onOpenEditPostPopup: PropTypes.func
+  onOpenEditPostPopup: PropTypes.func,
+  onOpenDeletePostPopup: PropTypes.func
 };
 
 export default PostCardButtons;

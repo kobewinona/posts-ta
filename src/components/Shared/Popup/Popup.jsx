@@ -7,7 +7,7 @@ import './Popup.css';
 import CloseButton from '../CloseButton/CloseButton';
 
 
-const Popup = ({name, isOpen, onSubmit, isUpdating, onClose, title, children}) => {
+const Popup = ({isOpen, isValidByDefault, submitText, onSubmit, isUpdating, onClose, title, name, children}) => {
   const submitButtonRef = useRef();
 
   if (isOpen) {
@@ -40,7 +40,9 @@ const Popup = ({name, isOpen, onSubmit, isUpdating, onClose, title, children}) =
         </div>
         <Form
           isShown={isOpen}
+          isValidByDefault={isValidByDefault}
           name={name}
+          submitText={submitText}
           onSubmit={onSubmit}
           isUpdating={isUpdating}
         >
@@ -54,6 +56,8 @@ const Popup = ({name, isOpen, onSubmit, isUpdating, onClose, title, children}) =
 Popup.propTypes = {
   name: PropTypes.string,
   isOpen: PropTypes.bool,
+  isValidByDefault: PropTypes.bool,
+  submitText: PropTypes.string,
   onSubmit: PropTypes.func,
   isUpdating: PropTypes.bool,
   onClose: PropTypes.func,

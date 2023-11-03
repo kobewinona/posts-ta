@@ -8,7 +8,7 @@ import PostCardButtons from '../PostCardButtons/PostCardButtons';
 import './PostCard.css';
 
 
-const PostCard = ({postId, title, body, userId, usersList, onOpenEditPostPopup}) => {
+const PostCard = ({postId, title, body, userId, usersList, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
   const [isCommentsShown, setIsCommentsShown] = useState(false);
 
   const findUserName = (userId) => {
@@ -24,8 +24,12 @@ const PostCard = ({postId, title, body, userId, usersList, onOpenEditPostPopup})
 
   const handleOpenEditPopup = () => {
     const postToEdit = {id: postId, title, body, userId};
-    console.log('postToEdit', postToEdit);
+
     onOpenEditPostPopup(postToEdit);
+  };
+
+  const handleOpenDeletePopup = () => {
+    onOpenDeletePostPopup(postId);
   };
 
   return (
@@ -41,6 +45,7 @@ const PostCard = ({postId, title, body, userId, usersList, onOpenEditPostPopup})
       <PostCardButtons
         onShowComments={handleShowComments}
         onOpenEditPostPopup={handleOpenEditPopup}
+        onOpenDeletePostPopup={handleOpenDeletePopup}
       />
     </li>
   );
@@ -52,7 +57,8 @@ PostCard.propTypes = {
   body: PropTypes.string,
   userId: PropTypes.number,
   usersList: PropTypes.array,
-  onOpenEditPostPopup: PropTypes.func
+  onOpenEditPostPopup: PropTypes.func,
+  onOpenDeletePostPopup: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
