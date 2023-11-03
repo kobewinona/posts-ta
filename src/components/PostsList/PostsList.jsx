@@ -20,6 +20,7 @@ const PostsList = ({postsList}) => {
 
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
+    console.log('postsCountLimit', postsCountLimit);
   }, [postsCountLimit]);
 
   useEffect(() => {
@@ -50,7 +51,10 @@ const PostsList = ({postsList}) => {
               })
             }
           </ul>
-          <Paginator setPostsCountLimit={setPostsCountLimit}/>
+          <Paginator
+            postsCountLimit={postsCountLimit}
+            setPostsCountLimit={setPostsCountLimit}
+          />
         </>
       }
     </section>

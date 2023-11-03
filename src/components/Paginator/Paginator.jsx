@@ -1,18 +1,24 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
-import {DEFAULT_POSTS_LIMIT, POSTS_LIMITS} from '../../utils/constants';
+import {POSTS_LIMITS} from '../../utils/constants';
 
 import './Paginator.css';
 
 
-const Paginator = ({setPostsCountLimit}) => {
-  const [activeButtonValue, setActiveButtonValue] = useState(DEFAULT_POSTS_LIMIT);
+const Paginator = ({postsCountLimit, setPostsCountLimit}) => {
+  const [activeButtonValue, setActiveButtonValue] = useState(postsCountLimit);
+
+  console.log('postsCountLimit', postsCountLimit);
 
   const handleButtonClick = (value) => {
     setActiveButtonValue(value);
     setPostsCountLimit(value);
-  }
+  };
+
+  useEffect(() => {
+    setActiveButtonValue(postsCountLimit);
+  }, [postsCountLimit]);
 
   return (
     <div className="paginator">
@@ -30,6 +36,7 @@ const Paginator = ({setPostsCountLimit}) => {
 };
 
 Paginator.propTypes = {
+  postsCountLimit: PropTypes.number,
   setPostsCountLimit: PropTypes.func
 };
 
