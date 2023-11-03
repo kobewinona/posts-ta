@@ -1,39 +1,49 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
 import * as api from '../../utils/postsApi';
+
+import {setPostsList, setUsersList} from '../../actions/actions';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 
 import './App.css';
+import PropTypes from 'prop-types';
 
 
-function App() {
-  const [postsList, setPostsList] = useState([]);
-
+function App({dispatch}) {
   const getAllPosts = () => {
     api.getPosts()
-      .then((data) => {
-        setPostsList(data);
+      .then((posts) => {
+        dispatch(setPostsList(posts));
       });
-  }
+  };
+
+  const getAllUsers = () => {
+    api.getUsers()
+      .then((users) => {
+        setUsersList(users);
+      })
+  };
 
   useEffect(() => {
     getAllPosts();
+    getAllUsers();
   }, []);
-
-  useEffect(() => {
-    console.log('postsList', postsList);
-  }, [postsList]);
 
   return (
     <>
       <Header/>
-      <Main postsList={postsList}/>
+      <Main/>
       <Footer/>
     </>
   );
 }
 
-export default App;
+App.propTypes = {
+  dispatch: PropTypes.func.isRequired
+}
+
+export default connect()(App);

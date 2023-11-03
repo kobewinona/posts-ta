@@ -6,10 +6,10 @@ import './Main.css';
 import Posts from '../Posts/Posts';
 
 
-const Main = ({postsList}) => {
+const Main = () => {
   return (
     <>
-      <Posts postsList={postsList}/>
+      <Posts/>
     </>
   );
 };

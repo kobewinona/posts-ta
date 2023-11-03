@@ -1,10 +1,14 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
+import {connect} from 'react-redux';
 
-import './PostsList.css';
 import PostCard from '../PostCard/PostCard';
 import Paginator from '../Paginator/Paginator';
 import useLocalStorage from '../../hooks/useLocalStorage';
+import {DEFAULT_POSTS_LIMIT} from '../../utils/constants';
+import {setPostsList} from '../../actions/actions';
+
+import './PostsList.css';
 
 
 const PostsList = ({postsList}) => {
@@ -12,7 +16,7 @@ const PostsList = ({postsList}) => {
   const {
     storedValue: storedPostsCountLimit,
     setStoredValue: setStoredPostsCountLimit
-  } = useLocalStorage('postsCountLimit', 10);
+  } = useLocalStorage('postsCountLimit', DEFAULT_POSTS_LIMIT);
 
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
@@ -53,7 +57,12 @@ const PostsList = ({postsList}) => {
 };
 
 PostsList.propTypes = {
-  postsList: PropTypes.array
+  postsList: PropTypes.array.isRequired,
+  setPostsList: PropTypes.func.isRequired
 };
 
-export default PostsList;
+const mapStateToProps = (state) => ({
+  postsList: state.data.postsList,
+});
+
+export default connect(mapStateToProps, {setPostsList})(PostsList);
