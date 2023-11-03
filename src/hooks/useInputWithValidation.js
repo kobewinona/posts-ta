@@ -1,8 +1,4 @@
 import {useEffect, useState} from 'react';
-// import validator from 'validator/es';
-
-// import {inputIncorrectEmailError, inputIncorrectNameError} from '../utils/resultMessages';
-// import {nameRegex} from '../utils/regex';
 
 
 export default function useInputWithValidation(defaultName, defaultValue) {
@@ -21,16 +17,13 @@ export default function useInputWithValidation(defaultName, defaultValue) {
 
     setIsInputValid(target.validity.valid);
     setErrorMessage(target.validationMessage);
+  };
 
-    // if (name === 'name') {
-    //   if (value && !nameRegex.test(value)) {
-    //     setIsInputValid(false);
-    //     setErrorMessage(inputIncorrectNameError);
-    //   }
-    // } else if (target.type === 'email') {
-    //   setIsInputValid(validator.isEmail(value));
-    //   setErrorMessage(inputIncorrectEmailError);
-    // }
+  const setInputValues = (name, value) => {
+    setInputName(name);
+    setInputValue(value);
+    setIsInputValid(true);
+    setErrorMessage('');
   };
 
   useEffect(() => {
@@ -45,6 +38,7 @@ export default function useInputWithValidation(defaultName, defaultValue) {
     inputValue,
     isInputValid,
     errorMessage,
-    handleInputChange
+    handleInputChange,
+    setInputValues
   };
 }

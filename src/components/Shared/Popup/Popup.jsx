@@ -7,7 +7,7 @@ import './Popup.css';
 import CloseButton from '../CloseButton/CloseButton';
 
 
-const Popup = ({isOpen, onSubmit, isUpdating, onClose, title, children}) => {
+const Popup = ({name, isOpen, onSubmit, isUpdating, onClose, title, children}) => {
   const submitButtonRef = useRef();
 
   if (isOpen) {
@@ -39,6 +39,8 @@ const Popup = ({isOpen, onSubmit, isUpdating, onClose, title, children}) => {
           <CloseButton onClose={onClose}/>
         </div>
         <Form
+          isShown={isOpen}
+          name={name}
           onSubmit={onSubmit}
           isUpdating={isUpdating}
         >
@@ -50,10 +52,11 @@ const Popup = ({isOpen, onSubmit, isUpdating, onClose, title, children}) => {
 };
 
 Popup.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
-  onSubmit: PropTypes.func.isRequired,
+  name: PropTypes.string,
+  isOpen: PropTypes.bool,
+  onSubmit: PropTypes.func,
   isUpdating: PropTypes.bool,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
   title: PropTypes.string,
   children: PropTypes.any
 }

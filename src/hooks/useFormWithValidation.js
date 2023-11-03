@@ -1,7 +1,4 @@
 import {useCallback, useState} from 'react';
-// import validator from 'validator/es';
-
-// import {nameRegex} from '../utils/regex';
 
 
 export default function useFormWithValidation(initialValues) {
@@ -23,14 +20,6 @@ export default function useFormWithValidation(initialValues) {
     }, {});
 
     currentInputsValidity[name] = target.validity.valid;
-
-    // if (name === 'name') {
-    //   if (value && !nameRegex.test(value)) {
-    //     currentInputsValidity[name] = false;
-    //   }
-    // } else if (target.type === 'email') {
-    //   currentInputsValidity[name] = validator.isEmail(value);
-    // }
 
     setInputsValidity(currentInputsValidity);
 

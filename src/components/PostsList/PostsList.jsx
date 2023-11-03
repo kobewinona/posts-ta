@@ -43,7 +43,7 @@ const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup}) => {
               postsList?.map((post, index) => {
                 return (index < postsCountLimit &&
                   <PostCard
-                    key={post.id}
+                    key={index + 1}
                     postId={post.id}
                     title={post.title}
                     body={post.body}

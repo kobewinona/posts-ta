@@ -22,30 +22,36 @@ const PostCard = ({postId, title, body, userId, usersList, onOpenEditPostPopup})
     setIsCommentsShown(!isCommentsShown);
   };
 
+  const handleOpenEditPopup = () => {
+    const postToEdit = {id: postId, title, body, userId};
+    console.log('postToEdit', postToEdit);
+    onOpenEditPostPopup(postToEdit);
+  };
+
   return (
     <li className="post-card unfold">
       {isCommentsShown
         ? <CommentsList postId={postId}/>
         : <div>
           <p className="post-card__author">{authorName}</p>
-          <h3 className="post-card__title" title={title}>{title.toUpperCase()}</h3>
+          <h3 className="post-card__title" title={title}>{title?.toUpperCase()}</h3>
           <p className="post-card__text">{body}</p>
         </div>
       }
       <PostCardButtons
         onShowComments={handleShowComments}
-        onOpenEditPostPopup={onOpenEditPostPopup}
+        onOpenEditPostPopup={handleOpenEditPopup}
       />
     </li>
   );
 };
 
 PostCard.propTypes = {
-  postId: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  userId: PropTypes.number.isRequired,
-  usersList: PropTypes.array.isRequired,
+  postId: PropTypes.number,
+  title: PropTypes.string,
+  body: PropTypes.string,
+  userId: PropTypes.number,
+  usersList: PropTypes.array,
   onOpenEditPostPopup: PropTypes.func
 };
 

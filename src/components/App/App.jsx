@@ -22,6 +22,7 @@ function App({dispatch, postsList}) {
   const [isUpdating, setIsUpdating] = useState(false);
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
+  const [postToEdit, setPostToEdit] = useState({});
 
   const getAllPosts = () => {
     api.getPosts()
@@ -46,12 +47,36 @@ function App({dispatch, postsList}) {
       .catch((err) => console.log(err));
   };
 
-  const addNewPost = (newPostData) => {
+  const addPost = ({author, title, body}) => {
     setIsUpdating(true);
 
-    api.addPost(newPostData)
+    api.addPost({userId: author, title, body})
       .then((post) => {
         dispatch(setPostsList([post, ...postsList]));
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        closeAllPopups()
+        setIsUpdating(false);
+      });
+  };
+
+  const editPost = (patchedPost, postId) => {
+    setIsUpdating(true);
+
+    console.log('patchedPost', patchedPost);
+    console.log('postId', postId);
+
+    api.editPost(patchedPost, postId)
+      .then((patchedPost) => {
+        const updatedPostsList = postsList.map((post) => {
+          if (post.id === postId) {
+            return (patchedPost);
+          } else {
+            return (post);
+          }
+        })
+        dispatch(setPostsList(updatedPostsList));
       })
       .catch((err) => console.log(err))
       .finally(() => {
@@ -64,7 +89,8 @@ function App({dispatch, postsList}) {
     setIsAddPostPopupOpen(true);
   };
 
-  const openEditPostPopup = () => {
+  const openEditPostPopup = (post) => {
+    setPostToEdit(post);
     setIsEditPostPopupOpen(true);
   };
 
@@ -89,12 +115,15 @@ function App({dispatch, postsList}) {
       <Footer/>
       <AddPostPopup
         isOpen={isAddPostPopupOpen}
-        onAddPost={addNewPost}
+        onAddPost={addPost}
         isUpdating={isUpdating}
         onClose={closeAllPopups}
       />
       <EditPostPopup
         isOpen={isEditPostPopupOpen}
+        postToEdit={postToEdit}
+        onEditPost={editPost}
+        isUpdating={isUpdating}
         onClose={closeAllPopups}
       />
     </>

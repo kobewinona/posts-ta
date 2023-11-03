@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 import Popup from '../Shared/Popup/Popup';
 import InputWithErrorMessage from '../Shared/InputWithErrorMessage/InputWithErrorMessage';
@@ -23,6 +23,10 @@ const AddPostPopup = ({isOpen, onAddPost, isUpdating, onClose}) => {
     onAddPost(inputValues);
   };
 
+  useEffect(() => {
+    setInputValues({});
+  }, [isOpen]);
+
   return (
     <Popup
       name="add-post"
@@ -34,12 +38,14 @@ const AddPostPopup = ({isOpen, onAddPost, isUpdating, onClose}) => {
     >
       <InputTitle title="Author"/>
       <SelectInput
+        isShown={isOpen}
         onUpdate={handleValuesUpdate}
         name="author"
-        required
+        placeholder="Author"
       />
       <InputTitle title="Title"/>
       <InputWithErrorMessage
+        isShown={isOpen}
         onUpdate={handleValuesUpdate}
         name="title"
         placeholder="Title"
@@ -50,6 +56,7 @@ const AddPostPopup = ({isOpen, onAddPost, isUpdating, onClose}) => {
       />
       <InputTitle title="Body"/>
       <TextAreaInput
+        isShown={isOpen}
         onUpdate={handleValuesUpdate}
         name="body"
         required

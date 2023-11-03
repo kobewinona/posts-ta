@@ -21,10 +21,19 @@ export const getComments = () => {
   }).then(res => returnRes(res));
 };
 
-export const addPost = (post) => {
+export const addPost = (newPost) => {
   return setRequest(`${postsApiConfig['url']}/posts`, {
     method: 'POST',
     headers: {...postsApiConfig['headers']},
-    body: JSON.stringify(post)
+    body: JSON.stringify(newPost)
+  }).then(res => returnRes(res));
+};
+
+export const editPost = (patchedPost, postId) => {
+  console.log('patchedPost and postId', patchedPost, postId);
+  return setRequest(`${postsApiConfig['url']}/posts/${postId}`, {
+    method: 'PATCH',
+    headers: {...postsApiConfig['headers']},
+    body: JSON.stringify(patchedPost)
   }).then(res => returnRes(res));
 };

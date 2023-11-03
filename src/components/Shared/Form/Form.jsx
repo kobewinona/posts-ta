@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import useFormWithValidation from '../../../hooks/useFormWithValidation';
 
@@ -8,7 +8,7 @@ import Spinner from '../Spinner/Spinner';
 import './Form.css';
 
 
-const Form = ({initialValues, name, submitText, onSubmit, isUpdating, children}) => {
+const Form = ({isShown, initialValues, name, submitText, onSubmit, isUpdating, children}) => {
   const {isFormValid, handleChange, resetForm} = useFormWithValidation(initialValues);
 
   const handleSubmit = event => {
@@ -18,6 +18,10 @@ const Form = ({initialValues, name, submitText, onSubmit, isUpdating, children})
 
     resetForm();
   };
+
+  useEffect(() => {
+    resetForm();
+  }, [isShown]);
 
   return (
     <form
@@ -42,10 +46,11 @@ const Form = ({initialValues, name, submitText, onSubmit, isUpdating, children})
 };
 
 Form.propTypes = {
+  isShown: PropTypes.bool,
   initialValues: PropTypes.object,
   submitText: PropTypes.string,
-  onSubmit: PropTypes.func.isRequired,
-  name: PropTypes.string.isRequired,
+  onSubmit: PropTypes.func,
+  name: PropTypes.string,
   isUpdating: PropTypes.bool,
   children: PropTypes.any,
 };

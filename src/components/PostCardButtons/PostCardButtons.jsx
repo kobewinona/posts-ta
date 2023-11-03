@@ -19,28 +19,24 @@ const PostCardButtons = ({onShowComments, onOpenEditPostPopup}) => {
       <div className="post-card-buttons__safe-buttons">
         <PostCardButton
           name="comments"
-          ariaLabel="Show comments."
           title="Show comments"
           onButtonClick={toggleShowComments}
           isToggleOn={true}
         />
         <PostCardButton
           name="edit"
-          ariaLabel="Edit post."
           title="Edit post"
           onButtonClick={onOpenEditPostPopup}
           isToggleOn={false}
         />
         <PostCardButton
           name="bookmark"
-          ariaLabel="Save post to bookmarks."
           title="Save post to bookmarks"
           isToggleOn={true}
         />
       </div>
       <PostCardButton
         name="delete"
-        ariaLabel="Delete post."
         title="Delete post"
         isToggleOn={false}
       />
