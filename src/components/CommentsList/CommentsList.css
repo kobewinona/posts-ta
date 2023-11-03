@@ -1,0 +1,28 @@
+.comments-list {
+  overflow-y: scroll;
+  overflow-x: clip;
+
+  list-style: none;
+
+  padding: 0;
+}
+
+.comments-list__comment_accent {
+  font-weight: 900;
+}
+
+.comments-list__comment-name {
+  overflow: hidden;
+
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comments-list__comment-name,
+.comments-list__comment-email {
+  margin: 0;
+}
+
+.comments-list__comment-text {
+  margin: 20px 0 40px;
+}

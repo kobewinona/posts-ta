@@ -23,6 +23,10 @@ html {
   -moz-text-size-adjust: 100%;
 }
 
+svg {
+  color: #fff;
+}
+
 .no-scroll {
   overflow: hidden;
 }

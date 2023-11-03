@@ -13,3 +13,10 @@ export const getUsers = () => {
     headers: {...postsApiConfig['headers']}
   }).then(res => returnRes(res));
 }
+
+export const getComments = () => {
+  return setRequest(`${postsApiConfig['url']}/comments`, {
+    method: 'GET',
+    headers: {...postsApiConfig['headers']}
+  }).then(res => returnRes(res));
+}

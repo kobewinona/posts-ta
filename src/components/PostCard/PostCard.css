@@ -21,6 +21,8 @@
 }
 
 .post-card {
+  max-height: 360px;
+
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -55,59 +57,17 @@
   margin: 0;
 }
 
+.post-card__text {
+  max-height: 150px;
+  overflow: scroll;
+
+  margin: 30px 0;
+}
+
 .post-card__title::selection,
 .post-card__author::selection,
 .post-card__text::selection {
   background-color: #2a2b2e;
 
   color: #f0f1ec;
-}
-
-.post-card__controls {
-  display: flex;
-  justify-content: space-between;
-
-  margin-top: 70px;
-}
-
-.post-card__controls_safe-controls {
-  display: flex;
-  column-gap: 10px;
-}
-
-.post-card__controls-button {
-  width: 30px;
-  height: 30px;
-
-  cursor: pointer;
-
-  background-color: transparent;
-  background-size: contain;
-  opacity: 1;
-
-  border: none;
-
-  transition: opacity .4s linear;
-}
-
-.post-card__controls-button:hover {
-  opacity: .5;
-
-  transition: opacity .2s linear;
-}
-
-.post-card__controls-button_type_comments {
-  background-image: url('../../images/icons/comments.svg');
-}
-
-.post-card__controls-button_type_edit {
-  background-image: url('../../images/icons/text.svg');
-}
-
-.post-card__controls-button_type_bookmark {
-  background-image: url('../../images/icons/bookmark.svg');
-}
-
-.post-card__controls-button_type_delete {
-  background-image: url('../../images/icons/trash-bin.svg');
 }

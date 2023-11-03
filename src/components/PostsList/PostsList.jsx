@@ -41,6 +41,7 @@ const PostsList = ({postsList}) => {
                 return (index < postsCountLimit &&
                   <PostCard
                     key={post.id}
+                    postId={post.id}
                     title={post.title}
                     body={post.body}
                     userId={post.userId}

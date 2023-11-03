@@ -3,7 +3,11 @@ import {connect} from 'react-redux';
 
 import * as api from '../../utils/postsApi';
 
-import {setPostsList, setUsersList} from '../../actions/actions';
+import {
+  setPostsList,
+  setUsersList,
+  setCommentsList
+} from '../../actions/actions';
 
 import Header from '../Header/Header';
 import Main from '../Main/Main';
@@ -28,9 +32,17 @@ function App({dispatch}) {
       })
   };
 
+  const getAllComments = () => {
+    api.getComments()
+      .then((comments) => {
+        dispatch(setCommentsList(comments));
+      })
+  };
+
   useEffect(() => {
     getAllPosts();
     getAllUsers();
+    getAllComments();
   }, []);
 
   return (

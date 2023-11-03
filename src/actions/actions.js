@@ -7,3 +7,8 @@ export const setUsersList = (users) => ({
   type: 'SET_USERS_LIST',
   payload: users,
 });
+
+export const setCommentsList = (comments) => ({
+  type: 'SET_COMMENTS_LIST',
+  payload: comments,
+});
