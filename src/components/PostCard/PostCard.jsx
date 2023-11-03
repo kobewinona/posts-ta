@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {connect} from 'react-redux';
 
 import CommentsList from '../CommentsList/CommentsList';
@@ -22,17 +22,13 @@ const PostCard = ({postId, title, body, userId, usersList}) => {
     setIsCommentsShown(!isCommentsShown);
   };
 
-  useEffect(() => {
-    console.log('isCommentsShown', isCommentsShown);
-  });
-
   return (
-    <li className="post-card">
+    <li className="post-card unfold">
       {isCommentsShown
         ? <CommentsList postId={postId}/>
         : <div>
           <p className="post-card__author">{authorName}</p>
-          <h3 className="post-card__title" title={title}>{title}</h3>
+          <h3 className="post-card__title" title={title}>{title.toUpperCase()}</h3>
           <p className="post-card__text">{body}</p>
         </div>
       }

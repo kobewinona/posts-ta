@@ -9,8 +9,6 @@ import './Paginator.css';
 const Paginator = ({postsCountLimit, setPostsCountLimit}) => {
   const [activeButtonValue, setActiveButtonValue] = useState(postsCountLimit);
 
-  console.log('postsCountLimit', postsCountLimit);
-
   const handleButtonClick = (value) => {
     setActiveButtonValue(value);
     setPostsCountLimit(value);

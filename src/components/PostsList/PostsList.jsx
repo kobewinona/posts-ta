@@ -11,7 +11,7 @@ import {setPostsList} from '../../actions/actions';
 import './PostsList.css';
 
 
-const PostsList = ({postsList}) => {
+const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
   const {
     storedValue: storedPostsCountLimit,
@@ -20,7 +20,6 @@ const PostsList = ({postsList}) => {
 
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
-    console.log('postsCountLimit', postsCountLimit);
   }, [postsCountLimit]);
 
   useEffect(() => {
@@ -35,7 +34,10 @@ const PostsList = ({postsList}) => {
         <>
           <ul className="posts-list__container">
             <li className="posts-list__add-button-container">
-              <button className="posts-list__add-button">ADD POST</button>
+              <button
+                className="posts-list__add-button"
+                onClick={onOpenAddPostPopup}
+              >ADD POST</button>
             </li>
             {
               postsList?.map((post, index) => {
@@ -46,6 +48,7 @@ const PostsList = ({postsList}) => {
                     title={post.title}
                     body={post.body}
                     userId={post.userId}
+                    onOpenEditPostPopup={onOpenEditPostPopup}
                   />
                 );
               })
@@ -63,7 +66,9 @@ const PostsList = ({postsList}) => {
 
 PostsList.propTypes = {
   postsList: PropTypes.array.isRequired,
-  setPostsList: PropTypes.func.isRequired
+  setPostsList: PropTypes.func.isRequired,
+  onOpenAddPostPopup: PropTypes.func.isRequired,
+  onOpenEditPostPopup: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({

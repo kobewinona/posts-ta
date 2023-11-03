@@ -1,25 +1,3 @@
-@keyframes unfold {
-  from {
-    transform: scale(1, .5);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1, 1);
-    opacity: 1;
-  }
-}
-
-@keyframes fold {
-  from {
-    transform: scale(1, 1);
-    opacity: 1;
-  }
-  to {
-    transform: scale(1, .5);
-    opacity: 0;
-  }
-}
-
 .post-card {
   height: 400px;
 
@@ -30,7 +8,6 @@
   border-right: 1px solid #2a2b2e;
   padding: 20px;
 
-  animation: unfold .2s forwards ease-in;
   will-change: transform, opacity;
 }
 
