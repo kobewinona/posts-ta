@@ -24,7 +24,7 @@ function App({dispatch}) {
   const getAllUsers = () => {
     api.getUsers()
       .then((users) => {
-        setUsersList(users);
+        dispatch(setUsersList(users));
       })
   };
 
