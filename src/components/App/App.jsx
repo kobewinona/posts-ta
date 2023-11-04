@@ -5,6 +5,8 @@ import {connect} from 'react-redux';
 import * as api from '../../utils/postsApi';
 import {
   setPostsList,
+  setBookmarkedPostsList,
+  setSelectedPostsList,
   setUsersList,
   setCommentsList
 } from '../../actions/actions';
@@ -14,24 +16,24 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import AddPostPopup from '../AddPostPopup/AddPostPopup';
 import EditPostPopup from '../EditPostPopup/EditPostPopup';
+import DeletePostPopup from '../DeletePostPopup/DeletePostPopup';
+import MultiActionTab from '../MultiActionTab/MultiActionTab';
 
 import './App.css';
-import DeletePostPopup from '../DeletePostPopup/DeletePostPopup';
-import useLocalStorage from '../../hooks/useLocalStorage';
 
 
-function App({dispatch, postsList}) {
+function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
   const [isUpdating, setIsUpdating] = useState(false);
+
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
   const [isDeletePostPopupOpen, setIsDeletePostPopupOpen] = useState(false);
+
   const [postToEdit, setPostToEdit] = useState({});
   const [postToDelete, setPostToDelete] = useState(0);
-  const [bookmarksList, setBookmarksList] = useState([]);
-  const {
-    storedValue: storedBookmarksList,
-    setStoredValue: setStoredBookmarksList
-  } = useLocalStorage('bookmarksList', []);
+
+
+  // handle posts
 
   const getAllPosts = () => {
     api.getPosts()
@@ -92,8 +94,19 @@ function App({dispatch, postsList}) {
   };
 
   const addPostToBookmarks = (postId) => {
-    console.log('postId', postId);
-    setBookmarksList((prevState) => ([...prevState, postId]));
+    const isBookmarked = bookmarkedPostsList?.some((id) => {
+      return id === postId;
+    });
+
+    if (!isBookmarked) {
+      const updatedBookmarkedPosts = [...bookmarkedPostsList, postId];
+
+      dispatch(setBookmarkedPostsList(updatedBookmarkedPosts));
+    } else {
+      const updatedBookmarkedPosts = bookmarkedPostsList?.filter((id) => id !== postId);
+
+      dispatch(setBookmarkedPostsList(updatedBookmarkedPosts));
+    }
   };
 
   const deletePost = (postId) => {
@@ -112,8 +125,32 @@ function App({dispatch, postsList}) {
       .finally(() => {
         closeAllPopups()
         setIsUpdating(false);
+        dispatch(setSelectedPostsList([]));
       });
   };
+
+  // const deleteSelectedPosts = (postIds) => {
+  //
+  // };
+
+  const handlePostSelect = (postId) => {
+    const isSelected = selectedPostsList?.some((id) => {
+      return id === postId;
+    });
+
+    if (!isSelected) {
+      const updatedSelectedPosts = [...selectedPostsList, postId];
+
+      dispatch(setSelectedPostsList(updatedSelectedPosts));
+    } else {
+      const updatedSelectedPosts = selectedPostsList?.filter((id) => id !== postId);
+
+      dispatch(setSelectedPostsList(updatedSelectedPosts));
+    }
+  };
+
+
+  // handle popups
 
   const openAddPostPopup = () => {
     setIsAddPostPopupOpen(true);
@@ -135,9 +172,8 @@ function App({dispatch, postsList}) {
     setIsDeletePostPopupOpen(false);
   };
 
-  useEffect(() => {
-    setStoredBookmarksList(bookmarksList);
-  }, [bookmarksList]);
+
+  // on mount
 
   useEffect(() => {
     getAllPosts();
@@ -149,11 +185,11 @@ function App({dispatch, postsList}) {
     <>
       <Header/>
       <Main
-        bookmarksList={storedBookmarksList}
         onOpenAddPostPopup={openAddPostPopup}
         onOpenEditPostPopup={openEditPostPopup}
         onAddPostToBookmarks={addPostToBookmarks}
         onOpenDeletePostPopup={openDeletePostPopup}
+        onSelectPost={handlePostSelect}
       />
       <Footer/>
       <AddPostPopup
@@ -176,17 +212,22 @@ function App({dispatch, postsList}) {
         isUpdating={isUpdating}
         onClose={closeAllPopups}
       />
+      <MultiActionTab/>
     </>
   );
 }
 
 App.propTypes = {
   dispatch: PropTypes.func.isRequired,
-  postsList: PropTypes.array
+  postsList: PropTypes.array,
+  bookmarkedPostsList: PropTypes.array,
+  selectedPostsList: PropTypes.array
 };
 
 const mapStateToProps = (state) => ({
   postsList: state.data.postsList,
+  bookmarkedPostsList: state.data.bookmarkedPostsList,
+  selectedPostsList: state.data.selectedPostsList
 });
 
 export default connect(mapStateToProps)(App);

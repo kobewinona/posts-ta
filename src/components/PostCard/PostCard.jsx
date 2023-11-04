@@ -3,11 +3,12 @@ import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 
 import CommentsList from '../CommentsList/CommentsList';
+import SelectButton from '../Shared/SelectButton/SelectButton';
 
 import './PostCard.css';
 
 
-const PostCard = ({postId, title, body, userId, usersList, ...props}) => {
+const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, ...props}) => {
   const [isCommentsShown, setIsCommentsShown] = useState(false);
   const [isCommentsButtonActive, setIsCommentsButtonActive] = useState(false);
   const [isBookmarkButtonActive, setIsBookmarkButtonActive] = useState(false);
@@ -31,6 +32,7 @@ const PostCard = ({postId, title, body, userId, usersList, ...props}) => {
   };
 
   const handleBookmarkButtonClick = () => {
+    props.onAddPostToBookmarks(postId);
     setIsBookmarkButtonActive(!isBookmarkButtonActive);
   };
 
@@ -38,8 +40,12 @@ const PostCard = ({postId, title, body, userId, usersList, ...props}) => {
     props.onOpenDeletePostPopup(postId);
   };
 
+  const handlePostSelect = () => {
+    props.onSelectPost(postId);
+  };
+
   useEffect(() => {
-    const isBookmarked = props.bookmarksList?.some((id) => {
+    const isBookmarked = bookmarkedPostsList?.some((id) => {
       return id === postId;
     });
 
@@ -51,10 +57,15 @@ const PostCard = ({postId, title, body, userId, usersList, ...props}) => {
       {isCommentsShown
         ? <CommentsList postId={postId}/>
         : <div>
-          <p className="post-card__author">{authorName}</p>
-          <h3 className="post-card__title" title={title}>{title?.toUpperCase()}</h3>
-          <p className="post-card__text">{body}</p>
-        </div>
+            <div className="post-card__details-container">
+              <div>
+                <p className="post-card__author">{authorName}</p>
+                <h3 className="post-card__title" title={title}>{title?.toUpperCase()}</h3>
+              </div>
+              <SelectButton postId={postId} onSelectPost={handlePostSelect}/>
+            </div>
+            <p className="post-card__text">{body}</p>
+          </div>
       }
       <div className="post-card__buttons">
         <div className="post-card__buttons-container">
@@ -105,14 +116,16 @@ PostCard.propTypes = {
   userId: PropTypes.number,
   usersList: PropTypes.array,
   onOpenEditPostPopup: PropTypes.func,
-  bookmarksList: PropTypes.array,
+  bookmarkedPostsList: PropTypes.array,
   isSavedOnLoad: PropTypes.bool,
   onAddPostToBookmarks: PropTypes.func,
-  onOpenDeletePostPopup: PropTypes.func
+  onOpenDeletePostPopup: PropTypes.func,
+  onSelectPost: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
-  usersList: state.data.usersList
+  usersList: state.data.usersList,
+  bookmarkedPostsList: state.data.bookmarkedPostsList
 });
 
 export default connect(mapStateToProps)(PostCard);

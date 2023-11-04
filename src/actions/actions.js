@@ -3,6 +3,16 @@ export const setPostsList = (posts) => ({
   payload: posts,
 });
 
+export const setBookmarkedPostsList = (bookmarkedPosts) => ({
+  type: 'SET_BOOKMARKED_POSTS_LIST',
+  payload: bookmarkedPosts,
+});
+
+export const setSelectedPostsList = (selectedPosts) => ({
+  type: 'SET_SELECTED_POSTS_LIST',
+  payload: selectedPosts,
+});
+
 export const setUsersList = (users) => ({
   type: 'SET_USERS_LIST',
   payload: users,

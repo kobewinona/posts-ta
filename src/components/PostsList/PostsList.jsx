@@ -6,23 +6,22 @@ import PostCard from '../PostCard/PostCard';
 import Paginator from '../Paginator/Paginator';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import {DEFAULT_POSTS_LIMIT} from '../../utils/constants';
-import {setPostsList} from '../../actions/actions';
 
 import './PostsList.css';
 
 
-const PostsList = ({postsList, onOpenAddPostPopup, bookmarksList, ...props}) => {
+const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
   const {
     storedValue: storedPostsCountLimit,
     setStoredValue: setStoredPostsCountLimit
   } = useLocalStorage('postsCountLimit', DEFAULT_POSTS_LIMIT);
 
-  const checkIsPostSaved = (postId) => {
-    return bookmarksList?.some((id) => {
-      return id === postId;
-    });
-  }
+  // const checkIsPostSaved = (postId) => {
+  //   return bookmarkedPostsList?.some((id) => {
+  //     return id === postId;
+  //   });
+  // }
 
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
@@ -33,6 +32,10 @@ const PostsList = ({postsList, onOpenAddPostPopup, bookmarksList, ...props}) => 
       setPostsCountLimit(storedPostsCountLimit);
     }
   }, []);
+
+  // useEffect(() => {
+  //   console.log('bookmarkedPostsList', bookmarkedPostsList);
+  // }, [bookmarkedPostsList]);
 
   return (
     <section className="posts-list">
@@ -49,12 +52,12 @@ const PostsList = ({postsList, onOpenAddPostPopup, bookmarksList, ...props}) => 
               postsList?.map((post, index) => {
                 return (index < postsCountLimit &&
                   <PostCard
-                    key={index + 1}
+                    key={index}
                     postId={post.id}
                     title={post.title}
                     body={post.body}
                     userId={post.userId}
-                    isSavedOnLoad={checkIsPostSaved()}
+                    // isSavedOnLoad={checkIsPostSaved(post.id)}
                     {...props}
                   />
                 );
@@ -75,12 +78,13 @@ PostsList.propTypes = {
   postsList: PropTypes.array,
   setPostsList: PropTypes.func,
   onOpenAddPostPopup: PropTypes.func,
-  bookmarksList: PropTypes.array,
+  bookmarkedPostsList: PropTypes.array,
   props: PropTypes.any
 };
 
 const mapStateToProps = (state) => ({
   postsList: state.data.postsList,
+  // bookmarkedPostsList: state.data.bookmarkedPostsList
 });
 
-export default connect(mapStateToProps, {setPostsList})(PostsList);
+export default connect(mapStateToProps)(PostsList);

@@ -1,4 +1,4 @@
-import {useCallback, useEffect, useState} from 'react';
+import {useCallback, useState} from 'react';
 
 
 export default function useFormWithValidation(initialValues) {
@@ -38,10 +38,6 @@ export default function useFormWithValidation(initialValues) {
   const setFormValid = () => {
     setIsFormValid(true);
   };
-
-  useEffect(() => {
-    console.log('inputsValidity', inputsValidity);
-  }, [inputsValidity]);
 
   return {inputsValidity, isFormValid, handleChange, resetForm, setFormValid};
 }
