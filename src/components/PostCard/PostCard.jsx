@@ -7,7 +7,7 @@ import CommentsList from '../CommentsList/CommentsList';
 import './PostCard.css';
 
 
-const PostCard = ({postId, title, body, userId, usersList, isSavedOnLoad, ...props}) => {
+const PostCard = ({postId, title, body, userId, usersList, ...props}) => {
   const [isCommentsShown, setIsCommentsShown] = useState(false);
   const [isCommentsButtonActive, setIsCommentsButtonActive] = useState(false);
   const [isBookmarkButtonActive, setIsBookmarkButtonActive] = useState(false);
@@ -39,8 +39,12 @@ const PostCard = ({postId, title, body, userId, usersList, isSavedOnLoad, ...pro
   };
 
   useEffect(() => {
-    setIsBookmarkButtonActive(isSavedOnLoad);
-  }, [isSavedOnLoad]);
+    const isBookmarked = props.bookmarksList?.some((id) => {
+      return id === postId;
+    });
+
+    setIsBookmarkButtonActive(isBookmarked);
+  }, [postId]);
 
   return (
     <li className="post-card unfold">
@@ -52,31 +56,31 @@ const PostCard = ({postId, title, body, userId, usersList, isSavedOnLoad, ...pro
           <p className="post-card__text">{body}</p>
         </div>
       }
-      <div className="post-card-buttons">
-        <div className="post-card-buttons__safe-buttons">
+      <div className="post-card__buttons">
+        <div className="post-card__buttons-container">
           <button
             className={`
-            post-card-button
+            post-card__button
             ${isCommentsButtonActive
-                  ? `post-card-button_type_comments_active`
-                  : `post-card-button_type_comments`}
+                  ? `post-card__button_type_comments_active`
+                  : `post-card__button_type_comments`}
             `}
             onClick={handleShowComments}
             name="comments"
             title="Show comments"
           ></button>
           <button
-            className="post-card-button post-card-button_type_edit"
+            className="post-card__button post-card__button_type_edit"
             onClick={handleOpenEditPopup}
             name="edit"
             title="Edit post"
           ></button>
           <button
             className={`
-            post-card-button
+            post-card__button
             ${isBookmarkButtonActive
-              ? `post-card-button_type_bookmark_active`
-              : `post-card-button_type_bookmark`}
+              ? `post-card__button_type_bookmark_active`
+              : `post-card__button_type_bookmark`}
             `}
             onClick={handleBookmarkButtonClick}
             name="bookmark"
@@ -84,7 +88,7 @@ const PostCard = ({postId, title, body, userId, usersList, isSavedOnLoad, ...pro
           ></button>
         </div>
         <button
-          className="post-card-button post-card-button_type_delete"
+          className="post-card__button post-card__button_type_delete"
           onClick={handleOpenDeletePopup}
           name="delete"
           title="Delete post"

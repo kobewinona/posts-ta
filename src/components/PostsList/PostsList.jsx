@@ -54,7 +54,7 @@ const PostsList = ({postsList, onOpenAddPostPopup, bookmarksList, ...props}) => 
                     title={post.title}
                     body={post.body}
                     userId={post.userId}
-                    isSavedOnLoad={checkIsPostSaved}
+                    isSavedOnLoad={checkIsPostSaved()}
                     {...props}
                   />
                 );
