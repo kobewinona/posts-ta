@@ -5,14 +5,16 @@ import './PostCardButtons.css';
 import PostCardButton from './PostCardButton';
 
 
-const PostCardButtons = ({onShowComments, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
+const PostCardButtons = (props) => {
   const [isActive, setIsActive] = useState(false);
 
   const toggleShowComments = () => {
     setIsActive(!isActive);
 
-    onShowComments();
+    props.onShowComments();
   };
+
+  console.log('onAddToBookmarks', props.onAddToBookmarks);
 
   return (
     <div className="post-card-buttons">
@@ -26,19 +28,20 @@ const PostCardButtons = ({onShowComments, onOpenEditPostPopup, onOpenDeletePostP
         <PostCardButton
           name="edit"
           title="Edit post"
-          onButtonClick={onOpenEditPostPopup}
+          onButtonClick={props.onOpenEditPostPopup}
           isToggleOn={false}
         />
         <PostCardButton
           name="bookmark"
           title="Save post to bookmarks"
+          onButtonClick={props.onAddToBookmarks}
           isToggleOn={true}
         />
       </div>
       <PostCardButton
         name="delete"
         title="Delete post"
-        onButtonClick={onOpenDeletePostPopup}
+        onButtonClick={props.onOpenDeletePostPopup}
         isToggleOn={false}
       />
     </div>
@@ -48,6 +51,7 @@ const PostCardButtons = ({onShowComments, onOpenEditPostPopup, onOpenDeletePostP
 PostCardButtons.propTypes = {
   onShowComments: PropTypes.func,
   onOpenEditPostPopup: PropTypes.func,
+  onAddToBookmarks: PropTypes.func,
   onOpenDeletePostPopup: PropTypes.func
 };
 

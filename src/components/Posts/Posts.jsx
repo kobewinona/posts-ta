@@ -6,22 +6,16 @@ import PostsList from '../PostsList/PostsList';
 import './Posts.css';
 
 
-const Posts = ({onOpenAddPostPopup, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
+const Posts = (props) => {
   return (
     <>
-      <PostsList
-        onOpenAddPostPopup={onOpenAddPostPopup}
-        onOpenEditPostPopup={onOpenEditPostPopup}
-        onOpenDeletePostPopup={onOpenDeletePostPopup}
-      />
+      <PostsList {...props}/>
     </>
   );
 };
 
 Posts.propTypes = {
-  onOpenAddPostPopup: PropTypes.func,
-  onOpenEditPostPopup: PropTypes.func,
-  onOpenDeletePostPopup: PropTypes.func
+  props: PropTypes.any
 };
 
 export default Posts;

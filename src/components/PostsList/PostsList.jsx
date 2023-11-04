@@ -11,12 +11,18 @@ import {setPostsList} from '../../actions/actions';
 import './PostsList.css';
 
 
-const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
+const PostsList = ({postsList, onOpenAddPostPopup, bookmarksList, ...props}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
   const {
     storedValue: storedPostsCountLimit,
     setStoredValue: setStoredPostsCountLimit
   } = useLocalStorage('postsCountLimit', DEFAULT_POSTS_LIMIT);
+
+  const checkIsPostSaved = (postId) => {
+    return bookmarksList?.some((id) => {
+      return id === postId;
+    });
+  }
 
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
@@ -48,8 +54,8 @@ const PostsList = ({postsList, onOpenAddPostPopup, onOpenEditPostPopup, onOpenDe
                     title={post.title}
                     body={post.body}
                     userId={post.userId}
-                    onOpenEditPostPopup={onOpenEditPostPopup}
-                    onOpenDeletePostPopup={onOpenDeletePostPopup}
+                    isSavedOnLoad={checkIsPostSaved}
+                    {...props}
                   />
                 );
               })
@@ -69,8 +75,8 @@ PostsList.propTypes = {
   postsList: PropTypes.array,
   setPostsList: PropTypes.func,
   onOpenAddPostPopup: PropTypes.func,
-  onOpenEditPostPopup: PropTypes.func,
-  onOpenDeletePostPopup: PropTypes.func
+  bookmarksList: PropTypes.array,
+  props: PropTypes.any
 };
 
 const mapStateToProps = (state) => ({

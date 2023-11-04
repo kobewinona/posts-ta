@@ -6,22 +6,16 @@ import './Main.css';
 import Posts from '../Posts/Posts';
 
 
-const Main = ({onOpenAddPostPopup, onOpenEditPostPopup, onOpenDeletePostPopup}) => {
+const Main = (props) => {
   return (
     <main>
-      <Posts
-        onOpenAddPostPopup={onOpenAddPostPopup}
-        onOpenEditPostPopup={onOpenEditPostPopup}
-        onOpenDeletePostPopup={onOpenDeletePostPopup}
-      />
+      <Posts {...props}/>
     </main>
   );
 };
 
 Main.propTypes = {
-  onOpenAddPostPopup: PropTypes.func,
-  onOpenEditPostPopup: PropTypes.func,
-  onOpenDeletePostPopup: PropTypes.func
+  props: PropTypes.any
 };
 
 export default Main;

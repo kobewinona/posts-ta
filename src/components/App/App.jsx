@@ -17,6 +17,7 @@ import EditPostPopup from '../EditPostPopup/EditPostPopup';
 
 import './App.css';
 import DeletePostPopup from '../DeletePostPopup/DeletePostPopup';
+import useLocalStorage from '../../hooks/useLocalStorage';
 
 
 function App({dispatch, postsList}) {
@@ -26,6 +27,11 @@ function App({dispatch, postsList}) {
   const [isDeletePostPopupOpen, setIsDeletePostPopupOpen] = useState(false);
   const [postToEdit, setPostToEdit] = useState({});
   const [postToDelete, setPostToDelete] = useState(0);
+  const [bookmarksList, setBookmarksList] = useState([]);
+  const {
+    storedValue: storedBookmarksList,
+    setStoredValue: setStoredBookmarksList
+  } = useLocalStorage('bookmarksList', []);
 
   const getAllPosts = () => {
     api.getPosts()
@@ -85,6 +91,11 @@ function App({dispatch, postsList}) {
       });
   };
 
+  const addPostToBookmarks = (postId) => {
+    console.log('postId', postId);
+    setBookmarksList((prevState) => ([...prevState, postId]));
+  };
+
   const deletePost = (postId) => {
     setIsUpdating(true);
 
@@ -125,6 +136,10 @@ function App({dispatch, postsList}) {
   };
 
   useEffect(() => {
+    setStoredBookmarksList(bookmarksList);
+  }, [bookmarksList]);
+
+  useEffect(() => {
     getAllPosts();
     getAllUsers();
     getAllComments();
@@ -134,8 +149,10 @@ function App({dispatch, postsList}) {
     <>
       <Header/>
       <Main
+        bookmarksList={storedBookmarksList}
         onOpenAddPostPopup={openAddPostPopup}
         onOpenEditPostPopup={openEditPostPopup}
+        onAddPostToBookmarks={addPostToBookmarks}
         onOpenDeletePostPopup={openDeletePostPopup}
       />
       <Footer/>
