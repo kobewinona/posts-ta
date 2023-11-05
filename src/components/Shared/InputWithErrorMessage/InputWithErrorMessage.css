@@ -3,8 +3,8 @@
 }
 
 .input-with-error-message__input {
-  width: 100%;
   box-sizing: border-box;
+  width: 100%;
 
   color: #2a2b2e;
   font-size: 18px;

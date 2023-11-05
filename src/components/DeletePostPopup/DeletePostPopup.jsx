@@ -32,7 +32,7 @@ DeletePostPopup.propTypes = {
   postToDelete: PropTypes.number,
   onDeletePost: PropTypes.func,
   isUpdating: PropTypes.bool,
-  onClose: PropTypes.func,
+  onClose: PropTypes.func
 };
 
 export default DeletePostPopup;

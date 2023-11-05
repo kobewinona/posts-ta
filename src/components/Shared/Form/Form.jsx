@@ -8,8 +8,13 @@ import Spinner from '../Spinner/Spinner';
 import './Form.css';
 
 
-const Form = ({isShown, isValidByDefault, initialValues, name, submitText, onSubmit, isUpdating, children}) => {
-  const {isFormValid, handleChange, resetForm, setFormValid} = useFormWithValidation(initialValues);
+const Form = ({isShown, isValidByDefault, initialValues, onSubmit, ...props}) => {
+  const {
+    isFormValid,
+    handleChange,
+    resetForm,
+    setFormValid
+  } = useFormWithValidation(initialValues);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -32,18 +37,18 @@ const Form = ({isShown, isValidByDefault, initialValues, name, submitText, onSub
       className="form"
       onChange={handleChange}
       onSubmit={handleSubmit}
-      name={name}
+      name={props.name}
       noValidate
     >
-      {children}
+      {props.children}
       <button
         className={`form__submit
           ${!isFormValid && 'form__submit_disabled'}
-          ${isUpdating && 'form__submit_updated'}`}
+          ${props.isUpdating && 'form__submit_updated'}`}
         type="submit"
         name="submit"
-        disabled={!isFormValid || isUpdating}
-      >{isUpdating ? <Spinner/> : submitText || 'Сохранить'}
+        disabled={!isFormValid || props.isUpdating}
+      >{props.isUpdating ? <Spinner/> : props.submitText || 'Сохранить'}
       </button>
     </form>
   );
@@ -57,7 +62,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func,
   name: PropTypes.string,
   isUpdating: PropTypes.bool,
-  children: PropTypes.any,
+  children: PropTypes.any
 };
 
 export default Form;

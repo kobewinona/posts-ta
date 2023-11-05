@@ -1,0 +1,45 @@
+.confirm-dialog__title {
+  font-size: 20px;
+  font-weight: 900;
+  text-align: center;
+
+  margin: 0 0 70px;
+}
+
+.confirm-dialog__buttons-container {
+  display: flex;
+  column-gap: 20px;
+}
+
+.confirm-dialog__button {
+  width: 100%;
+
+  color: #f0f1ec;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: normal;
+
+  cursor: pointer;
+
+  background-color: #2a2b2e;
+  opacity: 1;
+
+  border: none;
+  padding: 15px 0;
+
+  transition: opacity .2s linear;
+}
+
+.confirm-dialog__button:hover {
+  opacity: .5;
+
+  transition: opacity .2s linear;
+}
+
+.confirm-dialog__button_type_cancel {
+  color: #2a2b2e;
+
+  background-color: transparent;
+
+  border: 1px solid #2a2b2e;
+}

@@ -20,14 +20,14 @@ const Paginator = ({postsCountLimit, setPostsCountLimit}) => {
 
   return (
     <div className="paginator">
-      {POSTS_LIMITS.map((postsLimit) => {
+      {POSTS_LIMITS.map((postsLimit, index) => {
         return (
           <button
-            key={postsLimit}
+            key={index}
             className={`paginator__button ${activeButtonValue === postsLimit && 'paginator__button_active'}`}
             onClick={() => handleButtonClick(postsLimit)}
           >{postsLimit === Number.MAX_SAFE_INTEGER ? 'all' : postsLimit}</button>
-        )
+        );
       })}
     </div>
   );

@@ -12,6 +12,6 @@ const InputTitle = ({title}) => {
 
 InputTitle.propTypes = {
   title: PropTypes.string.isRequired
-}
+};
 
 export default InputTitle;

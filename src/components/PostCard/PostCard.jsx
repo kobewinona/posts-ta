@@ -36,8 +36,10 @@ const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, 
     setIsBookmarkButtonActive(!isBookmarkButtonActive);
   };
 
-  const handleOpenDeletePopup = () => {
-    props.onOpenDeletePostPopup(postId);
+  const handleDeletePostClick = () => {
+    props.onOpenConfirmDialog(() => {
+      return () => props.onDeletePost(postId);
+    });
   };
 
   const handlePostSelect = () => {
@@ -50,22 +52,22 @@ const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, 
     });
 
     setIsBookmarkButtonActive(isBookmarked);
-  }, [postId]);
+  }, [bookmarkedPostsList, postId]);
 
   return (
     <li className="post-card unfold">
       {isCommentsShown
         ? <CommentsList postId={postId}/>
         : <div>
-            <div className="post-card__details-container">
-              <div>
-                <p className="post-card__author">{authorName}</p>
-                <h3 className="post-card__title" title={title}>{title?.toUpperCase()}</h3>
-              </div>
-              <SelectButton postId={postId} onSelectPost={handlePostSelect}/>
+          <div className="post-card__details-container">
+            <div>
+              <p className="post-card__author">{authorName}</p>
+              <h3 className="post-card__title" title={title}>{title?.toUpperCase()}</h3>
             </div>
-            <p className="post-card__text">{body}</p>
+            <SelectButton postId={postId} onSelectPost={handlePostSelect}/>
           </div>
+          <p className="post-card__text">{body}</p>
+        </div>
       }
       <div className="post-card__buttons">
         <div className="post-card__buttons-container">
@@ -73,8 +75,8 @@ const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, 
             className={`
             post-card__button
             ${isCommentsButtonActive
-                  ? `post-card__button_type_comments_active`
-                  : `post-card__button_type_comments`}
+              ? `post-card__button_type_comments_active`
+              : `post-card__button_type_comments`}
             `}
             onClick={handleShowComments}
             name="comments"
@@ -100,7 +102,7 @@ const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, 
         </div>
         <button
           className="post-card__button post-card__button_type_delete"
-          onClick={handleOpenDeletePopup}
+          onClick={handleDeletePostClick}
           name="delete"
           title="Delete post"
         ></button>
@@ -119,8 +121,9 @@ PostCard.propTypes = {
   bookmarkedPostsList: PropTypes.array,
   isSavedOnLoad: PropTypes.bool,
   onAddPostToBookmarks: PropTypes.func,
-  onOpenDeletePostPopup: PropTypes.func,
-  onSelectPost: PropTypes.func
+  onSelectPost: PropTypes.func,
+  onOpenConfirmDialog: PropTypes.func,
+  onDeletePost: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({

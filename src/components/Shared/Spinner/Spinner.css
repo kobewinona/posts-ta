@@ -19,15 +19,15 @@
 .spinner {
   width: 30%;
   height: 100%;
-  
+
   display: flex;
   flex-direction: row;
   justify-content: center;
   column-gap: 10px;
   align-items: center;
-  
+
   margin: 0 auto;
-  
+
   animation: fadeIn .1s forwards ease-in-out;
 }
 
@@ -35,18 +35,18 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
   margin: 0 auto;
 }
 
 .spinner__wheel {
   width: 10px;
   height: 10px;
-  
-  border: 3px solid #eee;
-  border-top: 3px solid rgba(0, 0, 0, .2);
+
+  border: 3px solid #f0f1ec;
+  border-top: 3px solid rgba(42, 43, 46, .2);
   border-radius: 50%;
-  
+
   animation: spinner 1.5s linear infinite;
 }
 

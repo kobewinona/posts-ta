@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import './Main.css';
-
 import Posts from '../Posts/Posts';
+
+import './Main.css';
 
 
 const Main = (props) => {

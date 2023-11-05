@@ -10,7 +10,7 @@ const TextAreaInput = ({isShown, defaultValue, onUpdate, name}) => {
   const handleValuesChange = (event) => {
     const value = event.target.value;
 
-    setInputValue(value)
+    setInputValue(value);
     onUpdate(name, value);
   };
 
@@ -39,6 +39,6 @@ TextAreaInput.propTypes = {
   defaultValue: PropTypes.string,
   onUpdate: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired
-}
+};
 
 export default TextAreaInput;

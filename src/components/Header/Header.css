@@ -7,14 +7,13 @@
 }
 
 .header__title {
-  height: 100%;
   max-width: min-content;
-
-  cursor: default;
+  height: 100%;
 
   font-size: 30px;
   font-weight: 900;
   line-height: .8;
+  cursor: default;
 
   margin: 0;
   padding-right: 40px;

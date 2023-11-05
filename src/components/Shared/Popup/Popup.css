@@ -2,19 +2,19 @@
   width: 100%;
   height: 100vh;
 
-  opacity: 0;
+  display: flex;
   visibility: hidden;
 
-  display: flex;
+  opacity: 0;
+  position: fixed;
   flex-direction: column;
   justify-content: center;
+
   align-items: center;
 
-  position: fixed;
-
-  margin: 0 auto;
   top: 0;
   left: 0;
+  margin: 0 auto;
 
   transition: all .2s linear;
 }
@@ -36,8 +36,8 @@
 }
 
 .popup_open {
-  opacity: 1;
   visibility: visible;
+  opacity: 1;
 
   transition: opacity .2s linear;
 }
@@ -56,8 +56,8 @@
 
   display: flex;
   justify-content: space-between;
-  align-items: center;
   column-gap: 20px;
+  align-items: center;
 
   margin: 0 auto 40px;
 }

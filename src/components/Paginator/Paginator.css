@@ -16,12 +16,12 @@
   font-weight: 500;
 
   cursor: pointer;
+
   background-color: transparent;
+  opacity: 1;
 
   padding: 5px 0;
-
   border: 1px solid #2a2b2e;
-  opacity: 1;
 
   transition: opacity .4s linear;
 }

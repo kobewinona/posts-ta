@@ -9,7 +9,7 @@ const Spinner = () => {
       <div className="spinner__container">
         <div className="spinner__wheel"></div>
       </div>
-      <p className="spinner__message">Загрузка</p>
+      <p className="spinner__message">Loading</p>
     </div>
   );
 };

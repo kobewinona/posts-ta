@@ -2,10 +2,9 @@
   height: 400px;
 
   display: flex;
+  position: relative;
   flex-direction: column;
   justify-content: space-between;
-
-  position: relative;
 
   border-right: 1px solid #2a2b2e;
   padding: 20px;
@@ -29,14 +28,15 @@
 
 .post-card__title {
   min-height: 80px;
-  overflow: hidden;
-
   color: #2a2b2e;
+
   font-size: clamp(16px, 2.5vw, 20px);
   font-weight: 900;
   line-height: normal;
-
+  
   position: relative;
+
+  overflow: hidden;
 
   margin: 0;
 }
@@ -51,9 +51,9 @@
 .post-card__title::selection,
 .post-card__author::selection,
 .post-card__text::selection {
-  background-color: #2a2b2e;
-
   color: #f0f1ec;
+
+  background-color: #2a2b2e;
 }
 
 .post-card__buttons {

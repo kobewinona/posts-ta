@@ -1,19 +1,12 @@
 import PropTypes from 'prop-types';
-import React, {useRef, useEffect} from 'react';
+import React, {useEffect} from 'react';
 
-import Form from '../Form/Form';
-
-import './Popup.css';
 import CloseButton from '../CloseButton/CloseButton';
 
+import './Popup.css';
 
-const Popup = ({isOpen, isValidByDefault, submitText, onSubmit, isUpdating, onClose, title, name, children}) => {
-  const submitButtonRef = useRef();
 
-  if (isOpen) {
-    setTimeout(() => submitButtonRef.current?.focus(), 50);
-  }
-
+const Popup = ({isOpen, title, onClose, children}) => {
   useEffect(() => {
     const handleKeyDown = event => {
       if (event.key === 'Escape') {
@@ -38,31 +31,17 @@ const Popup = ({isOpen, isValidByDefault, submitText, onSubmit, isUpdating, onCl
           <h2 className="popup__title">{title.toUpperCase()}</h2>
           <CloseButton onClose={onClose}/>
         </div>
-        <Form
-          isShown={isOpen}
-          isValidByDefault={isValidByDefault}
-          name={name}
-          submitText={submitText}
-          onSubmit={onSubmit}
-          isUpdating={isUpdating}
-        >
-          {children}
-        </Form>
+        {children}
       </div>
     </section>
   );
 };
 
 Popup.propTypes = {
-  name: PropTypes.string,
   isOpen: PropTypes.bool,
-  isValidByDefault: PropTypes.bool,
-  submitText: PropTypes.string,
-  onSubmit: PropTypes.func,
-  isUpdating: PropTypes.bool,
-  onClose: PropTypes.func,
   title: PropTypes.string,
+  onClose: PropTypes.func,
   children: PropTypes.any
-}
+};
 
 export default Popup;

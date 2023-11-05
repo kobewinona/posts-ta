@@ -17,12 +17,6 @@ const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
     setStoredValue: setStoredPostsCountLimit
   } = useLocalStorage('postsCountLimit', DEFAULT_POSTS_LIMIT);
 
-  // const checkIsPostSaved = (postId) => {
-  //   return bookmarkedPostsList?.some((id) => {
-  //     return id === postId;
-  //   });
-  // }
-
   useEffect(() => {
     setStoredPostsCountLimit(postsCountLimit);
   }, [postsCountLimit]);
@@ -33,10 +27,6 @@ const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
     }
   }, []);
 
-  // useEffect(() => {
-  //   console.log('bookmarkedPostsList', bookmarkedPostsList);
-  // }, [bookmarkedPostsList]);
-
   return (
     <section className="posts-list">
       {
@@ -46,7 +36,8 @@ const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
               <button
                 className="posts-list__add-button"
                 onClick={onOpenAddPostPopup}
-              >ADD POST</button>
+              >ADD POST
+              </button>
             </li>
             {
               postsList?.map((post, index) => {
@@ -57,7 +48,6 @@ const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
                     title={post.title}
                     body={post.body}
                     userId={post.userId}
-                    // isSavedOnLoad={checkIsPostSaved(post.id)}
                     {...props}
                   />
                 );
@@ -83,8 +73,7 @@ PostsList.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  postsList: state.data.postsList,
-  // bookmarkedPostsList: state.data.bookmarkedPostsList
+  postsList: state.data.postsList
 });
 
 export default connect(mapStateToProps)(PostsList);

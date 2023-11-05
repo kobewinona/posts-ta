@@ -70,11 +70,11 @@ html {
   background-color: #f0f1ec;
 
   display: grid;
+  position: relative;
   grid-template-columns: 100%;
   grid-template-rows: max-content auto max-content;
-  grid-auto-flow: row;
 
-  position: relative;
+  grid-auto-flow: row;
 
   margin: 0;
   padding: 0;

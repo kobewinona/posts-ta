@@ -48,7 +48,7 @@ SelectInput.propTypes = {
   name: PropTypes.string,
   placeholder: PropTypes.string,
   usersList: PropTypes.array
-}
+};
 
 const mapStateToProps = (state) => ({
   usersList: state.data.usersList

@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 
 import './SelectButton.css';
 
+
 const SelectButton = ({selectedPostsList, postId, onSelectPost}) => {
   const [isSelected, setIsSelected] = useState(false);
 

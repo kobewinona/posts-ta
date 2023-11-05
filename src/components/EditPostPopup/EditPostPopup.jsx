@@ -2,12 +2,13 @@ import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
 import Popup from '../Shared/Popup/Popup';
-
-import './EditPostPopup.css';
+import Form from '../Shared/Form/Form';
 import InputWithErrorMessage from '../Shared/InputWithErrorMessage/InputWithErrorMessage';
 import InputTitle from '../Shared/InputTitle/InputTitle';
 import SelectInput from '../Shared/SelectInput/SelectInput';
 import TextAreaInput from '../Shared/TextAreaInput/TextAreaInput';
+
+import './EditPostPopup.css';
 
 
 const EditPostPopup = ({isOpen, postToEdit, onEditPost, isUpdating, onClose}) => {
@@ -30,41 +31,47 @@ const EditPostPopup = ({isOpen, postToEdit, onEditPost, isUpdating, onClose}) =>
   return (
     <Popup
       isOpen={isOpen}
-      onSubmit={handleSubmit}
-      isUpdating={isUpdating}
-      onClose={onClose}
       title="Edit Post"
-      name="edit-post"
+      onClose={onClose}
     >
-      <InputTitle title="Author"/>
-      <SelectInput
+      <Form
         isShown={isOpen}
-        defaultValue={postToEdit.userId}
-        onUpdate={handleValuesUpdate}
-        name="userId"
-        placeholder="Author"
-      />
-      <InputTitle title="Title"/>
-      <InputWithErrorMessage
-        isShown={isOpen}
-        defaultValue={postToEdit.title}
-        onUpdate={handleValuesUpdate}
-        name="title"
-        placeholder="Title"
-        type="text"
-        aria-label="Post title."
-        minLength="2"
-        required
-      />
-      <InputTitle title="Body"/>
-      <TextAreaInput
-        isShown={isOpen}
-        defaultValue={postToEdit.body}
-        onUpdate={handleValuesUpdate}
-        name="body"
-        placeholder="Body"
-        required
-      />
+        isValidByDefault={false}
+        name={name}
+        submitText="Edit"
+        onSubmit={handleSubmit}
+        isUpdating={isUpdating}
+      >
+        <InputTitle title="Author"/>
+        <SelectInput
+          isShown={isOpen}
+          defaultValue={postToEdit.userId}
+          onUpdate={handleValuesUpdate}
+          name="userId"
+          placeholder="Author"
+        />
+        <InputTitle title="Title"/>
+        <InputWithErrorMessage
+          isShown={isOpen}
+          defaultValue={postToEdit.title}
+          onUpdate={handleValuesUpdate}
+          name="title"
+          placeholder="Title"
+          type="text"
+          aria-label="Post title."
+          minLength="2"
+          required
+        />
+        <InputTitle title="Body"/>
+        <TextAreaInput
+          isShown={isOpen}
+          defaultValue={postToEdit.body}
+          onUpdate={handleValuesUpdate}
+          name="body"
+          placeholder="Body"
+          required
+        />
+      </Form>
     </Popup>
   );
 };
@@ -75,6 +82,6 @@ EditPostPopup.propTypes = {
   onEditPost: PropTypes.func,
   isUpdating: PropTypes.bool,
   onClose: PropTypes.func.isRequired
-}
+};
 
 export default EditPostPopup;
