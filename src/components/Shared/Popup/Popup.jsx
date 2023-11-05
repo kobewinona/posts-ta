@@ -31,7 +31,7 @@ const Popup = ({isOpen, title, onClose, children}) => {
         onClick={event => event.stopPropagation()}
       >
         <div className="popup__header">
-          <h2 className="popup__title">{title.toUpperCase()}</h2>
+          <h2 className="popup__title">{title?.toUpperCase()}</h2>
           <CloseButton onClose={onClose}/>
         </div>
         {children}

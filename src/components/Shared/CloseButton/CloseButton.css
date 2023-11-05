@@ -12,13 +12,13 @@
 
   border: none;
 
-  transition: opacity .4s ease-out;
+  transition: opacity .2s linear;
 }
 
 .close-button:hover {
-  opacity: .6;
+  opacity: .5;
 
-  transition: opacity .2s ease-in;
+  transition: opacity .2s linear;
 }
 
 @media (min-width: 768px) {

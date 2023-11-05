@@ -27,7 +27,7 @@
   height: 100vh;
 
   background-color: #2a2b2e;
-  opacity: .7;
+  opacity: .8;
 
   position: fixed;
 
@@ -69,6 +69,8 @@
 
   font-weight: 900;
   text-align: center;
+
+  margin: 0;
 }
 
 @media (min-width: 425px) {
@@ -80,6 +82,6 @@
     width: calc(100% - (40px * 2));
     max-width: 530px;
 
-    padding: 10px 40px 50px;
+    padding: 40px 40px 50px;
   }
 }

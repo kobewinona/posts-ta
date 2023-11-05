@@ -46,13 +46,13 @@
   margin: 30px 0 0;
 }
 
-.post-card__title::selection,
-.post-card__author::selection,
-.post-card__text::selection {
-  color: #f0f1ec;
+/*.post-card__title::selection,*/
+/*.post-card__author::selection,*/
+/*.post-card__text::selection {*/
+/*  color: #f0f1ec;*/
 
-  background-color: #2a2b2e;
-}
+/*  background-color: #2a2b2e;*/
+/*}*/
 
 .post-card__buttons {
   display: flex;
@@ -78,7 +78,7 @@
 
   border: none;
 
-  transition: opacity .4s linear;
+  transition: opacity .2s linear;
 }
 
 .post-card__button:hover {

@@ -18,7 +18,7 @@ const MultiActionTab = ({isShown, ...props}) => {
   };
 
   return (
-    <div className={`multi-action-tab ${isShown && 'multi-action-tab_active'}`}>
+    <section className={`multi-action-tab ${isShown && 'multi-action-tab_active'}`}>
       <button
         className="multi-action-tab__button"
         onClick={handleAddPostsToBookmarksClick}
@@ -29,7 +29,7 @@ const MultiActionTab = ({isShown, ...props}) => {
         onClick={handleDeletePostsClick}
       >Delete
       </button>
-    </div>
+    </section>
   );
 };
 

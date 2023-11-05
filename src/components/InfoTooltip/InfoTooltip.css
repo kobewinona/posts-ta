@@ -1,0 +1,43 @@
+.info-tooltip__pict {
+  width: 60px;
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  display: block;
+
+  margin: 0 auto 40px auto;
+  padding: 40px 40px 50px;
+}
+
+.info-tooltip__pict_status_accept {
+  background-image: url('../../images/icons/correct.svg');
+}
+
+.info-tooltip__pict_status_reject {
+  background-image: url('../../images/icons/failed.svg');
+}
+
+.info-tooltip__message {
+  max-width: 244px;
+
+  font-size: clamp(20px, 5vw, 24px);
+  font-weight: 900;
+  line-height: clamp(24px, 6vw, 29px);
+  text-align: center;
+
+  display: block;
+
+  margin: 0 auto 70px;
+}
+
+@media (min-width: 768px) {
+  .info-tooltip__pict {
+    margin: 0 auto 32px auto;
+  }
+
+  .info-tooltip__message {
+    max-width: 358px;
+  }
+}

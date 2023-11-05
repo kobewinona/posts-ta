@@ -23,25 +23,24 @@ import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import AddPostPopup from '../AddPostPopup/AddPostPopup';
 import EditPostPopup from '../EditPostPopup/EditPostPopup';
-import MultiActionTab from '../MultiActionTab/MultiActionTab';
-import InfoTooltip from '../Shared/InfoTooltip/InfoTooltip';
+import InfoTooltip from '../InfoTooltip/InfoTooltip';
 import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 
 import './App.css';
 
 
 function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
-  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
-  const [confirmAction, setConfirmAction] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
+  const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
+  const [toolTipMessage, setToolTipMessage] = useState('');
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
 
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
   const [isMultiActionTabShown, setIsMultiActionTabShown] = useState(false);
 
-  const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
-  const [toolTipMessage, setToolTipMessage] = useState('');
-  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
+  const [confirmAction, setConfirmAction] = useState(null);
 
   const [postToEdit, setPostToEdit] = useState({});
 
@@ -77,7 +76,7 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
 
     api.addPost({userId: author, title, body})
       .then((post) => {
-        // because JSON placeholder always returns id of 101 for new posts
+        // because JSON placeholder returns the same id of 101 for all added posts
         if (post.id > 100) {
           post.id = postsList.length + 1;
         }
@@ -237,13 +236,6 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
 
   // handle confirm dialog
 
-  const handleConfirm = () => {
-    if (confirmAction) {
-      confirmAction();
-    }
-    setConfirmAction(null);
-  };
-
   const handleOpenConfirmDialog = (action) => {
     setConfirmAction(action);
     setIsConfirmDialogOpen(true);
@@ -251,6 +243,13 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
 
   const closeConfirmDialog = () => {
     setIsConfirmDialogOpen(false);
+  };
+
+  const handleConfirm = () => {
+    if (confirmAction) {
+      confirmAction();
+    }
+    setConfirmAction(null);
   };
 
 
@@ -301,6 +300,9 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
         onOpenConfirmDialog={handleOpenConfirmDialog}
         onSelectPost={handlePostSelect}
         isUpdating={isUpdating}
+        isMultiActionTabShown={isMultiActionTabShown}
+        onAddSelectedPostsToBookmarks={addSelectedPostsToBookmarks}
+        onDeleteSelectedPosts={deleteSelectedPosts}
       />
       <Footer/>
       <AddPostPopup
@@ -321,12 +323,6 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
         onSubmit={handleConfirm}
         isUpdating={isUpdating}
         onClose={closeConfirmDialog}
-      />
-      <MultiActionTab
-        isShown={isMultiActionTabShown}
-        onOpenConfirmDialog={handleOpenConfirmDialog}
-        onAddSelectedPostsToBookmarks={addSelectedPostsToBookmarks}
-        onDeleteSelectedPosts={deleteSelectedPosts}
       />
       <InfoTooltip
         isOpen={isInfoToolTipOpen}
