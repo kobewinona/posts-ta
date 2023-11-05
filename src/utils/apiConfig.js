@@ -3,8 +3,7 @@ export const postsURL = 'https://jsonplaceholder.typicode.com';
 export const postsApiConfig = {
   url: `${postsURL}`,
   headers: {
-    'Accept': 'application/json',
-    'Content-Type': 'application/json'
+    'Content-type': 'application/json; charset=UTF-8'
   }
 };
 
@@ -17,7 +16,7 @@ export const returnRes = res => {
     return res.json();
   } else {
     return res.json().then(err => {
-      const errorMessage = `Ошибка: ${res.status}: ${err.message}`;
+      const errorMessage = `Error: ${res.status}: ${err.message}`;
       return Promise.reject(errorMessage);
     });
   }

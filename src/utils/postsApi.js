@@ -1,4 +1,4 @@
-import {postsApiConfig, setRequest, returnRes} from './props';
+import {postsApiConfig, setRequest, returnRes} from './apiConfig';
 
 export const getPosts = () => {
   return setRequest(`${postsApiConfig['url']}/posts`, {

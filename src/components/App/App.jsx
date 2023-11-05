@@ -25,7 +25,7 @@ import AddPostPopup from '../AddPostPopup/AddPostPopup';
 import EditPostPopup from '../EditPostPopup/EditPostPopup';
 import MultiActionTab from '../MultiActionTab/MultiActionTab';
 import InfoTooltip from '../Shared/InfoTooltip/InfoTooltip';
-import ConfirmDialog from '../Shared/ConfirmDialog/ConfirmDialog';
+import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 
 import './App.css';
 
@@ -77,6 +77,11 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
 
     api.addPost({userId: author, title, body})
       .then((post) => {
+        // because JSON placeholder always returns id of 101 for new posts
+        if (post.id > 100) {
+          post.id = postsList.length + 1;
+        }
+
         dispatch(setPostsList([post, ...postsList]));
 
         handleInfoToolTip(true, POST_ADD_SUCCESSFUL);
@@ -229,6 +234,9 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
     setIsEditPostPopupOpen(false);
   };
 
+
+  // handle confirm dialog
+
   const handleConfirm = () => {
     if (confirmAction) {
       confirmAction();
@@ -331,7 +339,7 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
 }
 
 App.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
   postsList: PropTypes.array,
   bookmarkedPostsList: PropTypes.array,
   selectedPostsList: PropTypes.array

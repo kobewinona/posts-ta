@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import Popup from '../Popup/Popup';
-import Spinner from '../Spinner/Spinner';
+import Popup from '../Shared/Popup/Popup';
+import Spinner from '../Shared/Spinner/Spinner';
 
 import './ConfirmDialog.css';
 
