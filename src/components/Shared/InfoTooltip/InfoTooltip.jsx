@@ -27,14 +27,17 @@ const InfoTooltip = ({isOpen, isUpdateSuccessful, toolTipMessage, onClose}) => {
       onClick={onClose}
     >
       <div
-        className={`info-tooltip__container ${isOpen ? 'grow' : 'shrink'}`}
+        className={`info-tooltip__container ${isOpen ? 'unfold' : 'fold'}`}
         onClick={event => event.stopPropagation()}
       >
         <div className="info-tooltip__close-button-container">
           <CloseButton onClose={onClose}/>
         </div>
         <div
-          className={`info-tooltip__pict info-tooltip__pict_status_${isUpdateSuccessful ? 'accept' : 'reject'}`}
+          className={`
+            info-tooltip__pict
+            info-tooltip__pict_status_${isUpdateSuccessful ? 'accept' : 'reject'}
+          `}
         >
         </div>
         <p className="info-tooltip__message">{toolTipMessage}</p>
