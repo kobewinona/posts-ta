@@ -38,6 +38,7 @@ const PostsList = ({postsList, onOpenAddPostPopup, ...props}) => {
                 onClick={onOpenAddPostPopup}
               >ADD POST
               </button>
+              <div className="posts-list__add-button-gap"></div>
             </li>
             {
               postsList?.map((post, index) => {

@@ -16,6 +16,9 @@ const Popup = ({isOpen, title, onClose, children}) => {
 
     if (isOpen) {
       document.addEventListener('keydown', handleKeyDown);
+      document.body.classList.add('no-scroll');
+    } else {
+      document.body.classList.remove('no-scroll');
     }
 
     return () => document.removeEventListener('keydown', handleKeyDown);

@@ -1,6 +1,6 @@
 .close-button {
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
 
   cursor: pointer;
 
@@ -23,9 +23,6 @@
 
 @media (min-width: 768px) {
   .close-button {
-    width: 32px;
-    height: 32px;
-
     top: -40px;
     right: -40px;
   }
