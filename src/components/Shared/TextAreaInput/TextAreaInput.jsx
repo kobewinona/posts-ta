@@ -1,24 +1,21 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
+
+import useInput from '../../../hooks/useInput';
 
 import './TextAreaInput.css';
 
 
 const TextAreaInput = ({isShown, defaultValue, onUpdate, name}) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleValuesChange = (event) => {
-    const value = event.target.value;
-
-    setInputValue(value);
-    onUpdate(name, value);
-  };
+  const {inputValue, handleInputChange, resetInputValues} = useInput(name, defaultValue);
 
   useEffect(() => {
-    if (defaultValue) {
-      setInputValue(defaultValue);
-    } else {
-      setInputValue('');
+    onUpdate(name, inputValue);
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (!defaultValue) {
+      resetInputValues();
     }
   }, [isShown, defaultValue]);
 
@@ -26,7 +23,7 @@ const TextAreaInput = ({isShown, defaultValue, onUpdate, name}) => {
     <textarea
       className="text-area-input"
       value={inputValue || ''}
-      onChange={handleValuesChange}
+      onChange={handleInputChange}
       name={name}
       cols="30"
       rows="10"

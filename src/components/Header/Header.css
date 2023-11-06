@@ -7,12 +7,14 @@
 }
 
 .header__title {
-  max-width: min-content;
+  width: min-content;
   height: 100%;
 
   font-size: 30px;
   font-weight: 900;
   line-height: .8;
+  white-space: nowrap;
+
   cursor: default;
 
   margin: 0;

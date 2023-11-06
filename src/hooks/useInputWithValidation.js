@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 
 
-export default function useInputWithValidation(defaultName, defaultValue) {
+function useInputWithValidation(defaultName, defaultValue) {
   const [inputName, setInputName] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [isInputValid, setIsInputValid] = useState(true);
@@ -42,3 +42,5 @@ export default function useInputWithValidation(defaultName, defaultValue) {
     setInputValues
   };
 }
+
+export default useInputWithValidation;

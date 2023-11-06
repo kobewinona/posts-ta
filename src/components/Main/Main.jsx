@@ -1,16 +1,45 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
 
+import useBookmarkFilter from '../../hooks/useBookmarkFilter';
+
+import QueryTab from '../QueryTab/QueryTab';
 import PostsList from '../PostsList/PostsList';
-
-import './Main.css';
 import MultiActionTab from '../MultiActionTab/MultiActionTab';
 
 
-const Main = (props) => {
+import './Main.css';
+import useSearch from '../../hooks/useSearch';
+import useAuthorFilter from '../../hooks/useAuthorFilter';
+
+
+const Main = ({postsList, bookmarkedPostsList, ...props}) => {
+  const {
+    filteredByBookmarkedPosts,
+    handleBookmarksFilterUpdate
+  } = useBookmarkFilter(postsList, bookmarkedPostsList);
+  const {
+    filteredByAuthorPosts,
+    handleAuthorFilterChange
+  } = useAuthorFilter(filteredByBookmarkedPosts);
+  const {
+    searchedPosts,
+    searchPosts
+  } = useSearch(filteredByAuthorPosts);
+
+  useEffect(() => {
+    console.log('filteredByAuthorPosts', filteredByAuthorPosts);
+  }, [filteredByAuthorPosts]);
+
   return (
     <main>
-      <PostsList {...props}/>
+      <QueryTab
+        onBookmarksFilter={handleBookmarksFilterUpdate}
+        onAuthorFilter={handleAuthorFilterChange}
+        onSearch={searchPosts}
+      />
+      <PostsList searchedPosts={searchedPosts} {...props}/>
       <MultiActionTab
         isShown={props.isMultiActionTabShown}
         onOpenConfirmDialog={props.onOpenConfirmDialog}
@@ -22,14 +51,19 @@ const Main = (props) => {
 };
 
 Main.propTypes = {
+  postsList: PropTypes.array,
+  bookmarkedPostsList: PropTypes.array,
   isMultiActionTabShown: PropTypes.bool,
   onOpenConfirmDialog: PropTypes.func,
   onAddSelectedPostsToBookmarks: PropTypes.func,
   onDeleteSelectedPosts: PropTypes.func,
-  handleOpenConfirmDialog: PropTypes.func,
-  addSelectedPostsToBookmarks: PropTypes.func,
-  deleteSelectedPosts: PropTypes.func,
+  onUseToolTip: PropTypes.func,
   props: PropTypes.any
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  postsList: state.data.postsList,
+  bookmarkedPostsList: state.data.bookmarkedPostsList
+});
+
+export default connect(mapStateToProps)(Main);

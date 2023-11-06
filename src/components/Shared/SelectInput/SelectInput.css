@@ -2,11 +2,19 @@
   width: 100%;
   height: 20px;
 
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   background-color: #f0f1ec;
 
-  margin: 0 0 40px;
+  margin: 0;
   border: none;
   padding: 0;
+}
+
+.select-input__value {
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .select-input:checked {

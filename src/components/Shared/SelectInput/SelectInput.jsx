@@ -1,35 +1,32 @@
 import PropTypes from 'prop-types';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
+
+import useInput from '../../../hooks/useInput';
 
 import './SelectInput.css';
 
 
-const SelectInput = ({isShown, defaultValue, onUpdate, name, placeholder, usersList}) => {
-  const [inputValue, setInputValue] = useState('');
-
-  const handleValuesChange = (event) => {
-    const value = event.target.value;
-
-    setInputValue(value);
-    onUpdate(name, parseInt(value, 10));
-  };
+const SelectInput = ({isShown, defaultValue, onUpdate, usersList, ...props}) => {
+  const {inputValue, handleInputChange, resetInputValues} = useInput(name, defaultValue);
 
   useEffect(() => {
-    if (defaultValue) {
-      setInputValue(defaultValue);
-    } else {
-      setInputValue('');
+    console.log('inputValue', inputValue);
+    onUpdate(props.name, parseInt(inputValue, 10));
+  }, [inputValue]);
+
+  useEffect(() => {
+    if (!defaultValue) {
+      resetInputValues();
     }
   }, [isShown, defaultValue]);
 
   return (
     <select
       className="select-input"
-      onChange={handleValuesChange}
-      name={name}
-      placeholder={placeholder}
+      onChange={handleInputChange}
       value={inputValue || ''}
+      {...props}
     >
       <option value="">Select an author</option>
       {usersList.map((user) => {

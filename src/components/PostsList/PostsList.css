@@ -6,7 +6,7 @@
 
   position: relative;
 
-  margin: 70px auto;
+  margin: 40px auto;
   border-right: 1px solid #2a2b2e;
   border-left: 1px solid #2a2b2e;
 }
@@ -24,7 +24,7 @@
 
 .posts-list__add-button-container {
   width: 100%;
-  min-height: 150px;
+  min-height: 100px;
 }
 
 .posts-list__add-button {
@@ -60,6 +60,20 @@
   background-color: #f0f1ec;
 }
 
+.posts-list__no-posts {
+  font-size: 24px;
+  font-weight: 900;
+
+  background-color: #f0f1ec;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  margin: 20px;
+  border: 1px dashed #2a2b2e;
+}
+
 @media (min-width: 480px) {
   .posts-list__container {
     grid-template-columns: repeat(auto-fill, minmax(348px, 1fr));
@@ -72,7 +86,7 @@
   }
   .posts-list__add-button-container {
     width: auto;
-    min-height: unset;
+    min-height: 400px;
 
     padding: 20px;
   }
@@ -87,6 +101,7 @@
     width: calc(100% - (30px * 2));
     max-width: 1140px;
 
+    margin: 40px auto;
     padding-bottom: 10px;
   }
 
