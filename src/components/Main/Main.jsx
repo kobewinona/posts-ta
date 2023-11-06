@@ -13,7 +13,7 @@ import MultiActionTab from '../MultiActionTab/MultiActionTab';
 import './Main.css';
 
 
-const Main = ({...props}) => {
+const Main = ({isLoading, ...props}) => {
   const postsList = useSelector((state) => state.data.postsList);
   const bookmarkedPostsList = useSelector((state) => state.data.bookmarkedPostsList);
 
@@ -37,7 +37,7 @@ const Main = ({...props}) => {
         onAuthorFilter={handleAuthorFilterChange}
         onSearch={searchPosts}
       />
-      <PostsList searchedPosts={searchedPosts} {...props}/>
+      <PostsList isLoading={isLoading} searchedPosts={searchedPosts} {...props}/>
       <MultiActionTab
         isShown={props.isMultiActionTabShown}
         onOpenConfirmDialog={props.onOpenConfirmDialog}
@@ -49,11 +49,11 @@ const Main = ({...props}) => {
 };
 
 Main.propTypes = {
+  isLoading: PropTypes.bool,
   isMultiActionTabShown: PropTypes.bool,
   onOpenConfirmDialog: PropTypes.func,
   onAddSelectedPostsToBookmarks: PropTypes.func,
   onDeleteSelectedPosts: PropTypes.func,
-  onUseToolTip: PropTypes.func,
   props: PropTypes.any
 };
 

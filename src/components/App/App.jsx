@@ -38,6 +38,7 @@ function App() {
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
   const [toolTipMessage, setToolTipMessage] = useState('');
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [isAddPostPopupOpen, setIsAddPostPopupOpen] = useState(false);
   const [isEditPostPopupOpen, setIsEditPostPopupOpen] = useState(false);
@@ -52,11 +53,14 @@ function App() {
   // handle posts
 
   const getAllPosts = () => {
+    setIsLoading(true);
+
     api.getPosts()
       .then((posts) => {
         dispatch(setPostsList(posts));
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   const getAllUsers = () => {
@@ -297,6 +301,7 @@ function App() {
     <>
       <Header/>
       <Main
+        isLoading={isLoading}
         onOpenAddPostPopup={openAddPostPopup}
         onOpenEditPostPopup={openEditPostPopup}
         onAddPostToBookmarks={addPostToBookmarks}

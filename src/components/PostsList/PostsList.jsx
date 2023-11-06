@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
 
+import Preloader from '../Shared/Preloader/Preloader';
 import PostCard from '../PostCard/PostCard';
 import Paginator from '../Paginator/Paginator';
 import useLocalStorage from '../../hooks/useLocalStorage';
@@ -9,7 +10,7 @@ import {DEFAULT_POSTS_LIMIT} from '../../utils/constants';
 import './PostsList.css';
 
 
-const PostsList = ({searchedPosts, onOpenAddPostPopup, ...props}) => {
+const PostsList = ({isLoading, searchedPosts, onOpenAddPostPopup, ...props}) => {
   const [postsCountLimit, setPostsCountLimit] = useState(0);
   const {
     storedValue: storedPostsCountLimit,
@@ -26,54 +27,60 @@ const PostsList = ({searchedPosts, onOpenAddPostPopup, ...props}) => {
     }
   }, []);
 
+  console.log('isLoading', isLoading);
+
   return (
     <section className="posts-list">
       {
-        <>
-          <ul className="posts-list__container">
-            <li className="posts-list__add-button-container">
-              <button
-                className="posts-list__add-button"
-                onClick={onOpenAddPostPopup}
-              >ADD POST
-              </button>
-              <div className="posts-list__add-button-gap"></div>
-            </li>
-            {
-              searchedPosts?.length === 0
-              ? <li className="posts-list__no-posts">
-                  <p>NO POSTS FOUND</p>
-                </li>
-              : searchedPosts?.map((post, index) => {
-                return (index < postsCountLimit &&
-                  <PostCard
-                    key={index}
-                    postId={post.id}
-                    title={post.title}
-                    body={post.body}
-                    userId={post.userId}
-                    {...props}
-                  />
-                );
-              })
-            }
-          </ul>
-          <Paginator
-            postsCountLimit={postsCountLimit}
-            setPostsCountLimit={setPostsCountLimit}
-          />
-        </>
+        isLoading
+          ?
+          <Preloader/>
+          :
+          <>
+            <ul className="posts-list__container">
+              <li className="posts-list__add-button-container">
+                <button
+                  className="posts-list__add-button"
+                  onClick={onOpenAddPostPopup}
+                >ADD POST
+                </button>
+                <div className="posts-list__add-button-gap"></div>
+              </li>
+              {
+                searchedPosts?.length === 0
+                  ?
+                  <li className="posts-list__no-posts">
+                    <p>NO POSTS FOUND</p>
+                  </li>
+                  :
+                  searchedPosts?.map((post, index) => {
+                    return (index < postsCountLimit &&
+                      <PostCard
+                        key={index}
+                        postId={post.id}
+                        title={post.title}
+                        body={post.body}
+                        userId={post.userId}
+                        {...props}
+                      />
+                    );
+                  })
+              }
+            </ul>
+            <Paginator
+              postsCountLimit={postsCountLimit}
+              setPostsCountLimit={setPostsCountLimit}
+            />
+          </>
       }
     </section>
   );
 };
 
 PostsList.propTypes = {
+  isLoading: PropTypes.bool,
   searchedPosts: PropTypes.array,
-  postsList: PropTypes.array,
-  setPostsList: PropTypes.func,
   onOpenAddPostPopup: PropTypes.func,
-  bookmarkedPostsList: PropTypes.array,
   props: PropTypes.any
 };
 
