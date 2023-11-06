@@ -27,8 +27,6 @@ const PostsList = ({isLoading, searchedPosts, onOpenAddPostPopup, ...props}) => 
     }
   }, []);
 
-  console.log('isLoading', isLoading);
-
   return (
     <section className="posts-list">
       {

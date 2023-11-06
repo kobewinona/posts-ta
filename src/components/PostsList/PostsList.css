@@ -61,8 +61,8 @@
 }
 
 .posts-list__no-posts {
+  color: rgba(42, 43, 46, .5);
   font-size: 24px;
-  font-weight: 900;
 
   background-color: #f0f1ec;
 
