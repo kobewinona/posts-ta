@@ -24,7 +24,7 @@
 }
 
 .search-query::placeholder {
-  color: #2a2b2e;
+  color: rgba(42, 43, 46, .5);
 }
 
 @media (min-width: 768px) {
