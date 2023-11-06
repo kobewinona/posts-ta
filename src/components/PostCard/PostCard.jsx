@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import CommentsList from '../CommentsList/CommentsList';
 import SelectButton from '../Shared/SelectButton/SelectButton';
@@ -8,7 +8,10 @@ import SelectButton from '../Shared/SelectButton/SelectButton';
 import './PostCard.css';
 
 
-const PostCard = ({postId, title, body, userId, usersList, bookmarkedPostsList, ...props}) => {
+const PostCard = ({postId, title, body, userId, ...props}) => {
+  const usersList = useSelector((state) => state.data.usersList);
+  const bookmarkedPostsList = useSelector((state) => state.data.bookmarkedPostsList);
+
   const [isCommentsShown, setIsCommentsShown] = useState(false);
   const [isCommentsButtonActive, setIsCommentsButtonActive] = useState(false);
   const [isBookmarkButtonActive, setIsBookmarkButtonActive] = useState(false);
@@ -116,9 +119,7 @@ PostCard.propTypes = {
   title: PropTypes.string,
   body: PropTypes.string,
   userId: PropTypes.number,
-  usersList: PropTypes.array,
   onOpenEditPostPopup: PropTypes.func,
-  bookmarkedPostsList: PropTypes.array,
   isSavedOnLoad: PropTypes.bool,
   onAddPostToBookmarks: PropTypes.func,
   onSelectPost: PropTypes.func,
@@ -126,9 +127,4 @@ PostCard.propTypes = {
   onDeletePost: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
-  usersList: state.data.usersList,
-  bookmarkedPostsList: state.data.bookmarkedPostsList
-});
-
-export default connect(mapStateToProps)(PostCard);
+export default PostCard;

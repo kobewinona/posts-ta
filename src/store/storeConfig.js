@@ -1,8 +1,12 @@
-import {createStore} from 'redux';
+import {configureStore} from '@reduxjs/toolkit';
 
-import rootReducer from '../reducers/rootReducer';
+import dataReducer from '../store/dataSlice';
 
 
-const store = createStore(rootReducer);
+const store = configureStore({
+  reducer: {
+    data: dataReducer,
+  },
+});
 
 export default store;

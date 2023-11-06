@@ -1,20 +1,22 @@
 import PropTypes from 'prop-types';
-import React, {useEffect} from 'react';
-import {connect} from 'react-redux';
+import React from 'react';
+import {useSelector} from 'react-redux';
 
 import useBookmarkFilter from '../../hooks/useBookmarkFilter';
+import useAuthorFilter from '../../hooks/useAuthorFilter';
+import useSearch from '../../hooks/useSearch';
 
 import QueryTab from '../QueryTab/QueryTab';
 import PostsList from '../PostsList/PostsList';
 import MultiActionTab from '../MultiActionTab/MultiActionTab';
 
-
 import './Main.css';
-import useSearch from '../../hooks/useSearch';
-import useAuthorFilter from '../../hooks/useAuthorFilter';
 
 
-const Main = ({postsList, bookmarkedPostsList, ...props}) => {
+const Main = ({...props}) => {
+  const postsList = useSelector((state) => state.data.postsList);
+  const bookmarkedPostsList = useSelector((state) => state.data.bookmarkedPostsList);
+
   const {
     filteredByBookmarkedPosts,
     handleBookmarksFilterUpdate
@@ -27,10 +29,6 @@ const Main = ({postsList, bookmarkedPostsList, ...props}) => {
     searchedPosts,
     searchPosts
   } = useSearch(filteredByAuthorPosts);
-
-  useEffect(() => {
-    console.log('filteredByAuthorPosts', filteredByAuthorPosts);
-  }, [filteredByAuthorPosts]);
 
   return (
     <main>
@@ -51,8 +49,6 @@ const Main = ({postsList, bookmarkedPostsList, ...props}) => {
 };
 
 Main.propTypes = {
-  postsList: PropTypes.array,
-  bookmarkedPostsList: PropTypes.array,
   isMultiActionTabShown: PropTypes.bool,
   onOpenConfirmDialog: PropTypes.func,
   onAddSelectedPostsToBookmarks: PropTypes.func,
@@ -61,9 +57,4 @@ Main.propTypes = {
   props: PropTypes.any
 };
 
-const mapStateToProps = (state) => ({
-  postsList: state.data.postsList,
-  bookmarkedPostsList: state.data.bookmarkedPostsList
-});
-
-export default connect(mapStateToProps)(Main);
+export default Main;

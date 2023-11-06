@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import './CommentsList.css';
 
 
-const CommentsList = ({postId, commentsList}) => {
+const CommentsList = ({postId}) => {
+  const commentsList = useSelector((state) => state.data.commentsList);
+
   const [currentPostComments, setCurrentPostComments] = useState([]);
 
   useEffect(() => {
@@ -35,12 +37,7 @@ const CommentsList = ({postId, commentsList}) => {
 };
 
 CommentsList.propTypes = {
-  postId: PropTypes.number.isRequired,
-  commentsList: PropTypes.array.isRequired
+  postId: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
-  commentsList: state.data.commentsList
-});
-
-export default connect(mapStateToProps)(CommentsList);
+export default CommentsList;

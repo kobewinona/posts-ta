@@ -16,8 +16,6 @@ function useBookmarkFilter(postsList, bookmarkedPostsList) {
   }, [postsList, bookmarkedPostsList]);
 
   useEffect(() => {
-    console.log('postsList', postsList);
-
     if (filterName && filterValue) {
       filterPosts();
     } else {

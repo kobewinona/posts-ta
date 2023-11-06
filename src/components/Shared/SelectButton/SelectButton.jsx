@@ -1,11 +1,13 @@
 import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import './SelectButton.css';
 
 
-const SelectButton = ({selectedPostsList, postId, onSelectPost}) => {
+const SelectButton = ({postId, onSelectPost}) => {
+  const selectedPostsList = useSelector((state) => state.data.selectedPostsList);
+
   const [isSelected, setIsSelected] = useState(false);
 
   const handlePostSelect = () => {
@@ -33,13 +35,8 @@ const SelectButton = ({selectedPostsList, postId, onSelectPost}) => {
 };
 
 SelectButton.propTypes = {
-  selectedPostsList: PropTypes.array,
   postId: PropTypes.number,
   onSelectPost: PropTypes.func
 };
 
-const mapStateToProps = (state) => ({
-  selectedPostsList: state.data.selectedPostsList
-});
-
-export default connect(mapStateToProps)(SelectButton);
+export default SelectButton;

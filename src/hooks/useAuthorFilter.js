@@ -15,8 +15,6 @@ function useAuthorFilter(postsList) {
   };
 
   useEffect(() => {
-    console.log('filterValue', filterValue);
-
     if (filterName && filterValue) {
       filterPosts();
     } else {

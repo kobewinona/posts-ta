@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React, {useEffect, useState} from 'react';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
 import * as api from '../../utils/postsApi';
 import {
@@ -9,7 +8,7 @@ import {
   setPostsList,
   setSelectedPostsList,
   setUsersList
-} from '../../actions/actions';
+} from '../../store/dataSlice';
 import {
   POST_ADD_SUCCESSFUL,
   POST_DELETE_SUCCESSFUL,
@@ -29,7 +28,12 @@ import ConfirmDialog from '../ConfirmDialog/ConfirmDialog';
 import './App.css';
 
 
-function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
+function App() {
+  const dispatch = useDispatch();
+  const postsList = useSelector((state) => state.data.postsList);
+  const bookmarkedPostsList = useSelector((state) => state.data.bookmarkedPostsList);
+  const selectedPostsList = useSelector((state) => state.data.selectedPostsList);
+
   const [isUpdating, setIsUpdating] = useState(false);
   const [isUpdateSuccessful, setIsUpdateSuccessful] = useState(false);
   const [toolTipMessage, setToolTipMessage] = useState('');
@@ -334,17 +338,4 @@ function App({dispatch, postsList, bookmarkedPostsList, selectedPostsList}) {
   );
 }
 
-App.propTypes = {
-  dispatch: PropTypes.func,
-  postsList: PropTypes.array,
-  bookmarkedPostsList: PropTypes.array,
-  selectedPostsList: PropTypes.array
-};
-
-const mapStateToProps = (state) => ({
-  postsList: state.data.postsList,
-  bookmarkedPostsList: state.data.bookmarkedPostsList,
-  selectedPostsList: state.data.selectedPostsList
-});
-
-export default connect(mapStateToProps)(App);
+export default App;
