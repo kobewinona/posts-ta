@@ -13,6 +13,10 @@
   padding: 0;
 }
 
+.select-input:focus {
+  outline: none;
+}
+
 .select-input:checked {
   background-color: #2a2b2e;
 }
