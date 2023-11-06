@@ -73,6 +73,7 @@
   border: none;
 
   transition: opacity .2s linear;
+  will-change: background-image;
 }
 
 .post-card__button:hover {

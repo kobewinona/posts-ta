@@ -30,11 +30,13 @@ const Popup = ({isOpen, title, onClose, children}) => {
         className={`popup__container ${isOpen ? 'unfold' : 'fold'}`}
         onClick={event => event.stopPropagation()}
       >
-        <div className="popup__header">
-          <h2 className="popup__title">{title?.toUpperCase()}</h2>
-          <CloseButton onClose={onClose}/>
+        <div className="popup__scroll-container">
+          <div className="popup__header">
+            <h2 className="popup__title">{title?.toUpperCase()}</h2>
+            <CloseButton onClose={onClose}/>
+          </div>
+          {children}
         </div>
-        {children}
       </div>
     </section>
   );
