@@ -66,6 +66,8 @@
 
   background-color: transparent;
   background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
   opacity: 1;
 
   border: none;
