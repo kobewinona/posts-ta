@@ -1,5 +1,5 @@
 .input-with-error-message {
-  margin: 0 0 10px;
+  margin: 0 0 5px;
 }
 
 .input-with-error-message__input {
@@ -38,7 +38,7 @@
 }
 
 .input-with-error-message__error-message {
-  height: 30px;
+  height: 25px;
 
   color: #e0194f;
   font-size: 14px;

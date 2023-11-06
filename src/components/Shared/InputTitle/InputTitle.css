@@ -2,5 +2,9 @@
   font-size: 20px;
   font-weight: 900;
 
-  margin: 0 0 10px;
+  margin: 40px 0 10px;
+}
+
+.input-title:last-of-type {
+  margin-top: 0;
 }

@@ -12,11 +12,6 @@
   padding: 0;
 }
 
-.select-input__value {
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .select-input:checked {
   background-color: #2a2b2e;
 }
